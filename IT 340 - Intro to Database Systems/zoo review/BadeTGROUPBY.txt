@@ -1,0 +1,33 @@
+Give the Transaction number, total selling price and the number of 
+items purchased in each transaction. Order the results by the transaction number.
+
+SELECT TRANS_ID, SUM(SELLING_PRICE), SUM(QUANTITY)
+FROM RECEIPT_LINE
+GROUP BY TRANS_ID
+ORDER BY TRANS_ID;
+
+22
+
+"TRANS_ID"                    "SUM(SELLING_PRICE)"          "SUM(QUANTITY)"               
+"10003"                       "47.98"                       "6"                           
+"10121"                       "14.98"                       "2"                           
+"10147"                       "8.75"                        "1"                           
+"10215"                       "24.95"                       "1"                           
+"10331"                       "21.69"                       "5"                           
+"10435"                       "27.94"                       "3"                           
+"10443"                       "31.94"                       "3"                           
+"10597"                       "47.94"                       "3"                           
+"10651"                       "22.75"                       "3"                           
+"10673"                       "14"                          "2"                           
+"10687"                       "19.74"                       "5"                           
+"10715"                       "32.65"                       "4"                           
+"10843"                       "11.99"                       "1"                           
+"10891"                       "18"                          "1"                           
+"10959"                       "19.95"                       "4"                           
+"11053"                       "46.98"                       "3"                           
+"11137"                       "42"                          "5"                           
+"12315"                       "56.69"                       "3"                           
+"12734"                       "11.99"                       "2"                           
+"12925"                       "28.95"                       "3"                           
+"13391"                       "12"                          "1"                           
+"13766"                       "58.99"                       "4"                           

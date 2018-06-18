@@ -1,0 +1,7 @@
+use case Property (ORANGE)
+
+View sold properties
+
+We need to know what properties have been sold and how many times it has been sold.
+
+actor: sales staff/owners

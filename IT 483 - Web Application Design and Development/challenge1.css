@@ -1,0 +1,11 @@
+body {
+	background-color: rgb(91, 127, 189);
+	font-family: Serif;
+}
+ul li {
+	list-style-position: inside;
+	text-align: center;
+}
+.copyright {
+	font-style: italic;
+}

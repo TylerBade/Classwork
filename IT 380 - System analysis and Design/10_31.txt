@@ -1,0 +1,34 @@
+1) A theater shows many movies, and is always showing at least one movie
+2) A movie can be shown at many theaters, and is always being showed at at least one theater
+3) Every movie recieves one or more reviews
+4) A review can only pertain to one movie
+5) A reviewer can write one or more reviews
+6) A review must be written by one reviewer
+
+
+Movie Entity Attributes:
+Prod_title
+Prod_releaseDate
+prod_price
+prod_type
+Movie_rating
+Movie_director
+prod_num
+
+Un-FNF
+
+Emp_name -> emp_firstName, emp_Middle, emp_lastName
+PKs = Proj_num, emp_num
+
+FNF - SNF
+
+Project Table (proj_num, proj_name)
+Employee Table (emp_num, emp_firstName, emp_middle, emp_lastName, Job_class, Chg_hour)
+Assignment table(proj_num, emp_num, Job_id, hours)
+
+SNF - TNF
+
+Project Table (proj_num, proj_name)
+Employee Table (emp_num, emp_firstName, emp_middle, emp_lastName)
+Job table (Job_id, Job_class, Chg_hour)
+Assignment table(proj_num, emp_num, Job_id, hours)

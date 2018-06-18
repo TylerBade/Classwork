@@ -1,0 +1,32 @@
+Project scope:
+
+Purpose:
+Expand and analyze the Prop2 database provided based on property sales.
+
+Tasks:
+
+Develop use cases
+Manually move the data from spreadsheet into databases (oracle and SQL Server)
+Using SSIS move the data from spreadsheet into databases (oracle and SQL Server)
+Create a master data model by combining all data models
+Extensive Query of PROP3 using SQL and embedded SQL
+Repeat part 4 using Python language
+analyze use cases and Instructor queries using SSRS
+Data Warehousing and analysis services
+Analytics with SSAS
+Analytics with QlikVeiw
+Analytics with Python
+
+Resources:
+
+SQL Server
+Oracle
+Python
+QlikView
+SSAS
+SSRS
+Provided materials
+
+Timetable:
+
+Provided by Excel document

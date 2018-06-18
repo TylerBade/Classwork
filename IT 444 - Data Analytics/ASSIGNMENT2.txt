@@ -1,0 +1,663 @@
+1.	List the book code and book title of each book.
+	
+SELECT BOOK_CODE, TITLE
+FROM dbo.BOOK;
+	
+0180	A Deepness in the Sky                   
+0189	Magic Terror                            
+0200	The Stranger                            
+0378	Venice                                  
+079X	Second Wind                             
+0808	The Edge                                
+1351	Dreamcatcher: A Novel                   
+1382	Treasure Chests                         
+138X	Beloved                                 
+2226	Harry Potter and the Prisoner of Azkaban
+2281	Van Gogh and Gauguin                    
+2766	Of Mice and Men                         
+2908	Electric Light                          
+3350	Group: Six People in Search of a Life   
+3743	Nine Stories                            
+3906	The Soul of a New Machine               
+5163	Travels with Charley                    
+5790	Catch-22                                
+6128	Jazz                                    
+6328	Band of Brothers                        
+669X	A Guide to SQL                          
+6908	Franny and Zooey                        
+7405	East of Eden                            
+7443	Harry Potter and the Goblet of Fire     
+7559	The Fall                                
+8092	Godel, Escher, Bach                     
+8720	When Rabbit Howls                       
+9611	Black House                             
+9627	Song of Solomon                         
+9701	The Grapes of Wrath                     
+9882	Slay Ride                               
+9883	The Catcher in the Rye                  
+9931	To Kill a Mockingbird                   
+
+2.	List the complete PUBLISHER table.
+
+SELECT *
+FROM PUBLISHER;
+
+AH 	Arkham House             	Sauk City WI        
+AP 	Arcade Publishing        	New York            
+BA 	Basic Books              	Boulder CO          
+BP 	Berkley Publishing       	Boston              
+BY 	Back Bay Books           	New York            
+CT 	Course Technology        	Boston              
+FA 	Fawcett Books            	New York            
+FS 	Farrar Straus and Giroux 	New York            
+HC 	HarperCollins Publishers 	New York            
+JP 	Jove Publications        	New York            
+JT 	Jeremy P. Tarcher        	Los Angeles         
+LB 	Lb Books                 	New York            
+MP 	McPherson and Co.        	Kingston            
+PE 	Penguin USA              	New York            
+PL 	Plume                    	New York            
+PU 	Putnam Publishing Group  	New York            
+RH 	Random House             	New York            
+SB 	Schoken Books            	New York            
+SC 	Scribner                 	New York            
+SS 	Simon and Schuster       	New York            
+ST 	Scholastic Trade         	New York            
+TA 	Taunton Press            	Newtown CT          
+TB 	Tor Books                	New York            
+TH 	Thames and Hudson        	New York            
+TO 	Touchstone Books         	Westport CT         
+VB 	Vintage Books            	New York            
+WN 	W.W. Norton              	New York            
+WP 	Westview Press           	Boulder CO          
+
+3.	List the name of each publisher located in New York.
+
+SELECT PUBLISHER_NAME
+FROM PUBLISHER
+WHERE CITY = 'New York';
+
+Arcade Publishing        
+Back Bay Books           
+Fawcett Books            
+Farrar Straus and Giroux 
+HarperCollins Publishers 
+Jove Publications        
+Lb Books                 
+Penguin USA              
+Plume                    
+Putnam Publishing Group  
+Random House             
+Schoken Books            
+Scribner                 
+Simon and Schuster       
+Scholastic Trade         
+Tor Books                
+Thames and Hudson        
+Vintage Books            
+W.W. Norton              
+
+4.	List the name of each publisher not located in New York.
+
+SELECT PUBLISHER_NAME
+FROM PUBLISHER
+WHERE CITY != 'New York';
+
+Arkham House             
+Basic Books              
+Berkley Publishing       
+Course Technology        
+Jeremy P. Tarcher        
+McPherson and Co.        
+Taunton Press            
+Touchstone Books         
+Westview Press           
+
+5.	List the name of each branch that has at least 10 employees.
+
+SELECT BRANCH_NAME
+FROM BRANCH
+WHERE NUM_EMPLOYEES >= 10;
+
+Henry Downtown                                    
+Henry Brentwood                                   
+
+6.	List the book code and book title of each book that has the type HOR.
+
+SELECT BOOK_CODE, TITLE
+FROM BOOK
+WHERE TYPE = 'HOR';
+
+0189	Magic Terror                            
+1351	Dreamcatcher: A Novel                   
+9611	Black House                             
+
+7.	List the book code and book title of each book that has the type HOR and is in paperback.
+
+SELECT BOOK_CODE, TITLE
+FROM BOOK
+WHERE TYPE = 'HOR' AND PAPERBACK = 'Y';
+
+0189	Magic Terror                            
+
+8.	List the book code and book title of each book that has the type HOR or is published by the publisher with the publisher code SC.
+
+SELECT BOOK_CODE, TITLE
+FROM BOOK
+WHERE TYPE = 'HOR' AND PUBLISHER_CODE = 'SC';
+
+1351	Dreamcatcher: A Novel                   
+
+9.	List the book code, book title, and price of each book with a price between $10 and $20.
+
+SELECT BOOK_CODE, TITLE, PRICE
+FROM BOOK
+WHERE PRICE BETWEEN 10 AND 20;
+
+1351	Dreamcatcher: A Novel                   	19.60
+138X	Beloved                                 	12.95
+2226	Harry Potter and the Prisoner of Azkaban	13.96
+2908	Electric Light                          	14.00
+3350	Group: Six People in Search of a Life   	10.40
+3906	The Soul of a New Machine               	11.16
+5790	Catch-22                                	12.00
+6128	Jazz                                    	12.95
+7405	East of Eden                            	12.95
+7443	Harry Potter and the Goblet of Fire     	18.16
+8092	Godel, Escher, Bach                     	14.00
+9611	Black House                             	18.81
+9627	Song of Solomon                         	14.00
+9701	The Grapes of Wrath                     	13.00
+9931	To Kill a Mockingbird                   	18.00
+
+10.	List the book code and book title of each book that has the type MYS and a price of less than $20.
+
+SELECT BOOK_CODE, TITLE
+FROM BOOK
+WHERE TYPE = 'MYS' AND PRICE < 20;
+
+0808	The Edge                                
+9882	Slay Ride                               
+
+11.	Customers who are part of a special program get a 15% discount off regular book prices.  
+	List the book code, book title, and discounted price of each book.  
+	Use DISCOUNTED_PRICE as the name for the computed column, which should calculate 85% of the 
+	current price; that is, 100% less a 15% discount.
+
+SELECT BOOK_CODE, TITLE, (cast(Round(PRICE * .85, 2) AS numeric(10,2))) AS DISCOUNTED_PRICE 
+FROM BOOK
+WHERE TYPE = 'MYS' AND PRICE < 20;
+
+0808	The Edge     5.94
+9882	Slay Ride    5.94
+
+12.	Find the name of each publisher containing the word 'and'.
+	(Hint: Be sure that your query selects only those publishers that contain the word 'and' and 
+	not those that contain the letters 'and' in the middle of a word.  
+	For example, your query should select the publisher named 'Farrar Straus and Giroux' but 
+	should not select the publisher name 'Random House.')
+
+SELECT PUBLISHER_NAME
+FROM PUBLISHER
+WHERE PUBLISHER_NAME LIKE '% and %';
+
+Farrar Straus and Giroux 
+McPherson and Co.        
+Simon and Schuster       
+Thames and Hudson        
+
+13.	List the book code and book title of each book that has the type FIC, MYS, or ART.  Use the IN operator in your command.
+
+SELECT BOOK_CODE, TITLE
+FROM BOOK
+WHERE TYPE IN('FIC', 'MYS', 'ART');
+
+0200	The Stranger                            
+0378	Venice                                  
+079X	Second Wind                             
+0808	The Edge                                
+1382	Treasure Chests                         
+138X	Beloved                                 
+2281	Van Gogh and Gauguin                    
+2766	Of Mice and Men                         
+3743	Nine Stories                            
+5790	Catch-22                                
+6128	Jazz                                    
+6908	Franny and Zooey                        
+7405	East of Eden                            
+7559	The Fall                                
+9627	Song of Solomon                         
+9701	The Grapes of Wrath                     
+9882	Slay Ride                               
+9883	The Catcher in the Rye                  
+9931	To Kill a Mockingbird                   
+
+14.	Repeat Exercise 13, but also list the books in alphabetical order by title. Use the IN operator in your command.
+
+SELECT BOOK_CODE, TITLE
+FROM BOOK
+WHERE TYPE IN('FIC', 'MYS', 'ART')
+ORDER BY TITLE;
+
+138X	Beloved                                 
+5790	Catch-22                                
+7405	East of Eden                            
+6908	Franny and Zooey                        
+6128	Jazz                                    
+3743	Nine Stories                            
+2766	Of Mice and Men                         
+079X	Second Wind                             
+9882	Slay Ride                               
+9627	Song of Solomon                         
+9883	The Catcher in the Rye                  
+0808	The Edge                                
+7559	The Fall                                
+9701	The Grapes of Wrath                     
+0200	The Stranger                            
+9931	To Kill a Mockingbird                   
+1382	Treasure Chests                         
+2281	Van Gogh and Gauguin                    
+0378	Venice                                  
+
+15.	Repeat Exercise 13, but also include the price and list the books in descending order by price.  
+	Within a group of books having the same price, further order the books by title. Use the IN operator in your command.
+
+SELECT BOOK_CODE, TITLE, PRICE
+FROM BOOK
+WHERE TYPE IN('FIC', 'MYS', 'ART')
+ORDER BY PRICE DESC, TITLE;
+
+079X	Second Wind                             	24.95
+0378	Venice                                  	24.50
+1382	Treasure Chests                         	24.46
+2281	Van Gogh and Gauguin                    	21.00
+9931	To Kill a Mockingbird                   	18.00
+9627	Song of Solomon                         	14.00
+9701	The Grapes of Wrath                     	13.00
+138X	Beloved                                 	12.95
+7405	East of Eden                            	12.95
+6128	Jazz                                    	12.95
+5790	Catch-22                                	12.00
+7559	The Fall                                	8.00
+0200	The Stranger                            	8.00
+9882	Slay Ride                               	6.99
+0808	The Edge                                	6.99
+2766	Of Mice and Men                         	6.95
+6908	Franny and Zooey                        	5.99
+3743	Nine Stories                            	5.99
+9883	The Catcher in the Rye                  	5.99
+
+16.	Display the list of book types in the database.  List each book type only once.
+
+SELECT DISTINCT(TYPE)
+FROM BOOK;
+
+ART
+CMP
+FIC
+HIS
+HOR
+MYS
+PHI
+POE
+PSY
+SCI
+SFI
+TRA
+
+17.	How many books have the type MYS?
+
+SELECT COUNT(BOOK_CODE)
+FROM BOOK
+WHERE TYPE = 'MYS'
+
+3
+
+18.	For each type of book, list the type and the average price.
+
+SELECT TYPE, AVG(PRICE)
+FROM BOOK
+GROUP BY TYPE;
+
+ART	23.320000
+CMP	37.950000
+FIC	10.520769
+HIS	9.600000
+HOR	15.466666
+MYS	12.976666
+PHI	14.000000
+POE	14.000000
+PSY	8.345000
+SCI	11.160000
+SFI	13.103333
+TRA	7.950000
+
+19.	Repeat Exercise 18, but consider only paperback books.
+
+SELECT TYPE, AVG(PRICE)
+FROM BOOK
+WHERE PAPERBACK = 'Y'
+GROUP BY TYPE;
+
+CMP	37.950000
+FIC	9.897500
+HIS	9.600000
+HOR	7.990000
+MYS	6.990000
+PHI	14.000000
+PSY	8.345000
+SCI	11.160000
+SFI	7.190000
+TRA	7.950000
+
+20.	Repeat Exercise 18, but consider only paperback books for those types for which the average price is more than $10.
+
+SELECT TYPE, AVG(PRICE)
+FROM BOOK
+WHERE PAPERBACK = 'Y'
+GROUP BY TYPE
+HAVING AVG(PRICE) > 10;
+
+CMP	37.950000
+PHI	14.000000
+SCI	11.160000
+
+21.	What is the lowest book price in the database?
+
+SELECT MIN(PRICE)
+FROM BOOK;
+
+5.99
+
+22.	What are the title(s) and price(s) of the least expensive book(s) in the database? Use a subquery.
+
+SELECT TITLE, PRICE
+FROM BOOK
+WHERE PRICE = (SELECT MIN(PRICE) FROM BOOK);
+
+Nine Stories                            	5.99
+Franny and Zooey                        	5.99
+The Catcher in the Rye                  	5.99
+
+23.	How many employees does Henry Books have?
+
+SELECT SUM(NUM_EMPLOYEES)
+FROM BRANCH
+WHERE BRANCH_NAME LIKE '%Henry%';
+
+40
+
+24.	List the last names of all authors.  Do not list duplicate last names.
+
+SELECT DISTINCT(AUTHOR_LAST)
+FROM AUTHOR;
+
+Ambrose     
+Camus       
+Castelman   
+Chase       
+Collins     
+Collins, Jr.
+Francis     
+Heaney      
+Heller      
+Hofstadter  
+Kidder      
+King        
+Lee         
+Morrison    
+O'Rourke    
+Owen        
+Pratt       
+Rowling     
+Salinger    
+Schleining  
+Solotaroff  
+Steinbeck   
+Straub      
+Vintage     
+Wills       
+
+25.	List the title of the all the mystery paperback books.
+
+SELECT TITLE
+FROM BOOK
+WHERE TYPE = 'MYS' AND PAPERBACK = 'Y';
+
+The Edge                                
+Slay Ride                               
+
+26.	For each author, list their number, last name, anu number of books they written
+
+SELECT a.AUTHOR_NUM, a.AUTHOR_LAST, COUNT(c.BOOK_CODE) AS NUM_WROTE
+FROM AUTHOR a
+INNER JOIN WROTE c ON a.AUTHOR_NUM = c.AUTHOR_NUM
+GROUP BY a.AUTHOR_NUM, a.AUTHOR_LAST;
+
+1	Morrison    	3
+2	Solotaroff  	1
+3	Vintage     	1
+4	Francis     	3
+5	Straub      	2
+6	King        	2
+7	Pratt       	1
+8	Chase       	1
+9	Collins     	1
+10	Heller      	1
+11	Wills       	1
+12	Hofstadter  	1
+13	Lee         	1
+14	Ambrose     	1
+15	Rowling     	2
+16	Salinger    	3
+17	Heaney      	1
+18	Camus       	2
+19	Collins, Jr.	1
+20	Steinbeck   	4
+23	O'Rourke    	1
+24	Kidder      	1
+25	Schleining  	1
+
+27.	How many author's last names start with 'C'?  Label the total as 'C_Count'.
+
+SELECT COUNT(AUTHOR_LAST) AS C_COUNT
+FROM AUTHOR
+WHERE AUTHOR_LAST LIKE 'C%';
+
+5
+
+28.	How many author's first names start with a 'J' and have a '.' in the fourth position?  Label the total as 'A_Count'.
+
+SELECT COUNT(AUTHOR_FIRST) AS A_COUNT
+FROM AUTHOR
+WHERE AUTHOR_FIRST LIKE 'J__.%';
+
+2
+
+29.	For each book, list the book code, book title, publisher code, and publisher name.  Order the results by publisher name.
+
+SELECT b.BOOK_CODE, b.TITLE, p.PUBLISHER_CODE, p.PUBLISHER_NAME
+FROM BOOK b
+INNER JOIN PUBLISHER p ON b.PUBLISHER_CODE = p.PUBLISHER_CODE
+ORDER BY PUBLISHER_NAME;
+
+3906	The Soul of a New Machine               	BY 	Back Bay Books           
+8092	Godel, Escher, Bach                     	BA 	Basic Books              
+3350	Group: Six People in Search of a Life   	BP 	Berkley Publishing       
+669X	A Guide to SQL                          	CT 	Course Technology        
+2908	Electric Light                          	FS 	Farrar Straus and Giroux 
+0189	Magic Terror                            	FA 	Fawcett Books            
+9931	To Kill a Mockingbird                   	HC 	HarperCollins Publishers 
+9882	Slay Ride                               	JP 	Jove Publications        
+8720	When Rabbit Howls                       	JP 	Jove Publications        
+0808	The Edge                                	JP 	Jove Publications        
+3743	Nine Stories                            	LB 	Lb Books                 
+6908	Franny and Zooey                        	LB 	Lb Books                 
+9883	The Catcher in the Rye                  	LB 	Lb Books                 
+9701	The Grapes of Wrath                     	PE 	Penguin USA              
+7405	East of Eden                            	PE 	Penguin USA              
+2766	Of Mice and Men                         	PE 	Penguin USA              
+5163	Travels with Charley                    	PE 	Penguin USA              
+6128	Jazz                                    	PL 	Plume                    
+138X	Beloved                                 	PL 	Plume                    
+9627	Song of Solomon                         	PL 	Plume                    
+079X	Second Wind                             	PU 	Putnam Publishing Group  
+9611	Black House                             	RH 	Random House             
+7443	Harry Potter and the Goblet of Fire     	ST 	Scholastic Trade         
+2226	Harry Potter and the Prisoner of Azkaban	ST 	Scholastic Trade         
+1351	Dreamcatcher: A Novel                   	SC 	Scribner                 
+5790	Catch-22                                	SC 	Scribner                 
+0378	Venice                                  	SS 	Simon and Schuster       
+1382	Treasure Chests                         	TA 	Taunton Press            
+0180	A Deepness in the Sky                   	TB 	Tor Books                
+6328	Band of Brothers                        	TO 	Touchstone Books         
+0200	The Stranger                            	VB 	Vintage Books            
+7559	The Fall                                	VB 	Vintage Books            
+2281	Van Gogh and Gauguin                    	WP 	Westview Press           
+
+30.	For each book published by Plume, list the book code, book title, and price.
+
+SELECT b.BOOK_CODE, b.TITLE, b.PRICE
+FROM BOOK b
+INNER JOIN PUBLISHER p ON b.PUBLISHER_CODE = p.PUBLISHER_CODE
+WHERE p.PUBLISHER_NAME = 'Plume';
+
+31.	List the book title, book code, and price of each book published Plume that has a book price of at least $14.
+
+138X	Beloved                                 	12.95
+6128	Jazz                                    	12.95
+9627	Song of Solomon                         	14.00
+
+32.	List the book code, book title, and units on hand for each book in branch number 4.
+
+SELECT b.BOOK_CODE, b.TITLE, i.ON_HAND
+FROM BOOK b
+INNER JOIN INVENTORY i ON b.BOOK_CODE = i.BOOK_CODE
+WHERE i.BRANCH_NUM = 4;
+
+079X	Second Wind                             	3
+2226	Harry Potter and the Prisoner of Azkaban	1
+2281	Van Gogh and Gauguin                    	3
+2908	Electric Light                          	1
+5790	Catch-22                                	2
+7443	Harry Potter and the Goblet of Fire     	1
+9627	Song of Solomon                         	2
+9701	The Grapes of Wrath                     	2
+9883	The Catcher in the Rye                  	2
+
+33.	List the book title for each book that has the type PSY and that is published by Jove Publications.
+
+SELECT b.TITLE
+FROM BOOK b
+INNER JOIN PUBLISHER p ON b.PUBLISHER_CODE = p.PUBLISHER_CODE
+WHERE b.TYPE = 'PSY' and PUBLISHER_NAME = 'Jove Publications';
+
+When Rabbit Howls                       
+
+34.	Find the book title for each book written by author number 18.  Use the IN operator.
+
+SELECT b.TITLE
+FROM BOOK b
+INNER JOIN WROTE w ON b.BOOK_CODE = w.BOOK_CODE
+WHERE AUTHOR_NUM IN (18);
+
+The Stranger                            
+The Fall                                
+
+35.	Repeat question 34, but use the EXISTS operator.
+
+SELECT TITLE
+FROM BOOK a
+WHERE EXISTS
+(SELECT * FROM WROTE b WHERE AUTHOR_NUM = 18 and a.BOOK_CODE = b.BOOK_CODE);
+
+The Stranger                            
+The Fall                                
+
+36.	Find the book code and book title for each book located in branch number 2 and written by author number 20.
+
+SELECT b.BOOK_CODE, b.TITLE
+FROM BOOK b
+INNER JOIN WROTE w ON b.BOOK_CODE = w.BOOK_CODE
+INNER JOIN INVENTORY i ON b.BOOK_CODE = i.BOOK_CODE
+WHERE W.AUTHOR_NUM = 20 AND i.BRANCH_NUM = 2;
+
+9701	The Grapes of Wrath                     
+
+37.	List the book codes for each pair of books that have the same price.  
+	For example, one such pair would be book 0200 and book 7559, because the price of both books is $8.00.  
+	The first book code listed should be the major sort key and the second book code should be the minor sort key.
+
+SELECT a.BOOK_CODE AS MATCH_1, b.BOOK_CODE AS MATCH_2
+FROM BOOK a, BOOK b
+WHERE a.PRICE = b.PRICE AND a.BOOK_CODE != b.BOOK_CODE
+ORDER BY a.BOOK_CODE, b.BOOK_CODE;
+
+0200	7559
+0808	9882
+138X	6128
+138X	7405
+2908	8092
+2908	9627
+3743	6908
+3743	9883
+6128	138X
+6128	7405
+6908	3743
+6908	9883
+7405	138X
+7405	6128
+7559	0200
+8092	2908
+8092	9627
+9627	2908
+9627	8092
+9882	0808
+9883	3743
+9883	6908
+
+38.	Find the book title, author last name, and units on hand for each book in branch number 4.
+
+SELECT b.TITLE, a.AUTHOR_LAST, i.ON_HAND
+FROM BOOK b
+INNER JOIN WROTE w ON b.BOOK_CODE = w.BOOK_CODE
+INNER JOIN AUTHOR a ON a.AUTHOR_NUM = w.AUTHOR_NUM
+INNER JOIN INVENTORY i ON b.BOOK_CODE = i.BOOK_CODE
+WHERE i.BRANCH_NUM = 4;
+
+Second Wind                             	Francis     	3
+Harry Potter and the Prisoner of Azkaban	Rowling     	1
+Van Gogh and Gauguin                    	Collins     	3
+Van Gogh and Gauguin                    	Collins, Jr.	3
+Electric Light                          	Heaney      	1
+Catch-22                                	Heller      	2
+Harry Potter and the Goblet of Fire     	Rowling     	1
+Song of Solomon                         	Morrison    	2
+The Grapes of Wrath                     	Steinbeck   	2
+The Catcher in the Rye                  	Salinger    	2
+
+39.	Repeat question 38, but this time list only paperback books.
+
+SELECT b.TITLE, a.AUTHOR_LAST, i.ON_HAND
+FROM BOOK b
+INNER JOIN WROTE w ON b.BOOK_CODE = w.BOOK_CODE
+INNER JOIN AUTHOR a ON a.AUTHOR_NUM = w.AUTHOR_NUM
+INNER JOIN INVENTORY i ON b.BOOK_CODE = i.BOOK_CODE
+WHERE i.BRANCH_NUM = 4 AND b.PAPERBACK = 'Y';
+
+Catch-22                                	Heller      	2
+Song of Solomon                         	Morrison    	2
+The Grapes of Wrath                     	Steinbeck   	2
+The Catcher in the Rye                  	Salinger    	2
+
+40.	List the branch name and branchlocation of those branches that have books on-hand  writte by authors 'Owen' or 'Lee' 
+
+SELECT r.BRANCH_NAME, r.BRANCH_LOCATION
+FROM BRANCH r
+INNER JOIN INVENTORY i ON r.BRANCH_NUM = i.BRANCH_NUM
+INNER JOIN BOOK b ON b.BOOK_CODE = i.BOOK_CODe
+INNER JOIN WROTE w ON b.BOOK_CODE = w.BOOK_CODE
+INNER JOIN AUTHOR a ON a.AUTHOR_NUM = w.AUTHOR_NUM
+WHERE a.AUTHOR_LAST IN ('Owen', 'Lee');
+
+Henry Downtown                                    	16 Riverview                                      

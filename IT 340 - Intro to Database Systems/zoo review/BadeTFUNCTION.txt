@@ -1,0 +1,9 @@
+Get the total quantity of items sold in all transactions.
+
+SELECT SUM(QUANTITY)
+FROM RECEIPT_LINE;
+
+1
+
+"SUM(QUANTITY)"               
+"65"                          

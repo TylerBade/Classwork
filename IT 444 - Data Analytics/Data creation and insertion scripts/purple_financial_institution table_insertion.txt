@@ -1,0 +1,12 @@
+insert into financial_instituition values 	(	'1024'	,	'Bells Fargo'			,	'3415 Olanwood Court Suite 202'	,	'MANKATO'	,	'MN'	);
+insert into financial_instituition values 	(	'1025'	,	'Bajaj'				,	'307 W. Allegheny Avenue'	,	'SAINT PAUL'	,	'MN'	);
+insert into financial_instituition values 	(	'1026'	,	'Samsung'			,	'145 Laywers Row'		,	'ROCHESTER'	,	'MN'	);
+insert into financial_instituition values 	(	'1027'	,	'Thrivent Financial'		,	'1717 Arch Street'		,	'SPRINGFIELD'	,	'IL'	);
+insert into financial_instituition values 	(	'1028'	,	'Ascent Finance'		,	'200 Pennsylvania, Suite 200'	,	'WASHINGTON'	,	'DC'	);
+insert into financial_instituition values 	(	'1029'	,	'SouthPoint Credit Union'	,	'14714 Main Street'		,	'DOVER'		,	'DE'	);
+insert into financial_instituition values 	(	'1030'	,	'Compeer Finance'		,	'13 Federal Street P.O Box 704'	,	'TALLAHASSEE'	,	'FL'	);
+insert into financial_instituition values 	(	'1031'	,	'Pioneer Bank'			,	'1300 N Lake Shore Dr.'		,	'HONOLULU'	,	'HI'	);
+insert into financial_instituition values 	(	'1032'	,	'Federal Credit Union'		,	'warren'			,	'JUNEAU'	,	'AK'	);
+insert into financial_instituition values 	(	'1033'	,	'Rabo Finance'			,	'San Street'			,	'SACRAMENTO'	,	'CA'	);
+insert into financial_instituition values 	(	'1034'	,	'Profinium Bank'		,	'Stewart Sreet'			,	'CARSON CITY'	,	'NV'	);
+insert into financial_instituition values 	(	'1035'	,	'Amex Bank'			,	'1050 Conn. Ave'		,	'SALEM'		,	'OR'	);

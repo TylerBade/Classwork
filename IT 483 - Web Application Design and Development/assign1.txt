@@ -1,0 +1,18 @@
+483 Assignment 1:
+
+squarefree:
+
+Doesn't format html code (not as easily readable)
+Doesn't allow tabs
+
+scratchpad:
+
+Formats code
+auto inputs some tags
+other people can intrude on your session and mess up your design.
+
+liveweave:
+
+separate sections for html, css, and javascript
+Formats code
+had dark mode

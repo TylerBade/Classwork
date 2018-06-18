@@ -1,0 +1,122 @@
+Question 1
+
+"PART_NUM"                    "DESCRIPTION"                 
+"AT94"                        "Iron           "             
+"BV06"                        "Home Gym       "             
+"CD52"                        "Microwave Oven "             
+"DL71"                        "Cordless Drill "             
+"DR93"                        "Gas Range      "             
+"DW11"                        "Washer         "             
+"FD21"                        "Stand Mixer    "             
+"KL62"                        "Dryer          "             
+"KT03"                        "Dishwasher     "             
+"KV29"                        "Treadmill      "             
+
+Question 2
+
+"REP_NUM"                     "LAST_NAME"                   "FIRST_NAME"                  "STREET"                      "CITY"                        "STATE"                       "ZIP"                         "COMMISSION"                  "RATE"                        
+"20"                          "Kaiser         "             "Valerie        "             "624 Randall    "             "Grove          "             "FL"                          "33321"                       "20542.5"                     "0.05"                        
+"35"                          "Hull           "             "Richard        "             "532 Jackson    "             "Sheldon        "             "FL"                          "33553"                       "39216"                       "0.07"                        
+"65"                          "Perez          "             "Juan           "             "1626 Taylor    "             "Fillmore       "             "FL"                          "33336"                       "23487"                       "0.05"                        
+
+Question 3
+
+"CUSTOMER_NAME"               
+"Brookings Direct                   "
+"Bargains Galore                    "
+"Kline's                            "
+"Johnson's Department Store         "
+
+Question 4
+
+"ORDER_NUM"                   
+"21619"                       
+
+Question 5
+
+"CUSTOMER_NUM"                "CUSTOMER_NAME"               
+"148"                         "Al's Appliance and Sport           "
+"356"                         "Ferguson's                         "
+"462"                         "Bargains Galore                    "
+"524"                         "Kline's                            "
+"608"                         "Johnson's Department Store         "
+"842"                         "All Season                         "
+
+Question 6
+
+"PART_NUM"                    "DESCRIPTION"                 
+"BV06"                        "Home Gym       "             
+"CD52"                        "Microwave Oven "             
+"DR93"                        "Gas Range      "             
+"DW11"                        "Washer         "             
+"KL62"                        "Dryer          "             
+"KT03"                        "Dishwasher     "             
+"KV29"                        "Treadmill      "             
+
+Question 7
+
+"PART_NUM"                    "DESCRIPTION"                 "ON_HAND"                     
+"DL71"                        "Cordless Drill "             "21"                          
+"DW11"                        "Washer         "             "12"                          
+"FD21"                        "Stand Mixer    "             "22"                          
+"KL62"                        "Dryer          "             "12"                          
+
+Question 8
+
+"PART_NUM"                    "DESCRIPTION"                 "ON_HAND_VALUE"               
+"CD52"                        "Microwave Oven "             "5280"                        
+"DR93"                        "Gas Range      "             "3960"                        
+"DW11"                        "Washer         "             "4799.88"                     
+"KL62"                        "Dryer          "             "4199.4"                      
+"KT03"                        "Dishwasher     "             "4760"                        
+
+Question 9
+
+"PART_NUM"                    "DESCRIPTION"                 "ON_HAND_VALUE"               
+"BV06"                        "Home Gym       "             "35772.75"                    
+"KV29"                        "Treadmill      "             "12510"                       
+
+Question 10
+
+"PART_NUM"                    "DESCRIPTION"                 
+"AT94"                        "Iron           "             
+"BV06"                        "Home Gym       "             
+"DL71"                        "Cordless Drill "             
+"FD21"                        "Stand Mixer    "             
+"KV29"                        "Treadmill      "             
+
+Question 11
+
+"CUSTOMER_NUM"                "CUSTOMER_NAME"               
+"725"                         "Deerfield's Four Seasons           "
+
+Question 12
+
+"DESCRIPTION"                 
+"Cordless Drill "             
+"Dishwasher     "             
+"Dryer          "             
+"Gas Range      "             
+"Home Gym       "             
+"Iron           "             
+"Microwave Oven "             
+"Stand Mixer    "             
+"Treadmill      "             
+"Washer         "             
+
+Question 13
+
+"DESCRIPTION"                 
+"Microwave Oven "             
+"Gas Range      "             
+"Washer         "             
+"Dryer          "             
+"Dishwasher     "             
+"Iron           "             
+"Cordless Drill "             
+"Stand Mixer    "             
+"Home Gym       "             
+"Treadmill      "             
+
+Question 14
+

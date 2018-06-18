@@ -1,0 +1,21 @@
+Tyler Bade
+Review for 10/14
+
+1-13 answered already
+
+14: C. Pointers
+15: B. Overflow
+16: C. linked list with header and trailer nodes
+17: A. FIFO lists
+18: C. Stack
+19: D. Deque
+20: B. FAEKCDHGB
+21: B. Queues
+22: A. Input-restricted deque
+23: D. None of the above
+24: D. All of the above
+25: B. Priority
+26: A. variable in E will appear as external nodes and operations in internal nodes
+27: C. ABDECF
+28: B. Recursion
+29: A. Binary trees

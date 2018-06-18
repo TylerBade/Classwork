@@ -1,0 +1,49 @@
+Incorrect MT answers
+
+2: What is the DOM?
+
+A: References elements within an HTML file
+
+6: Headings, paragraph, lists, and divs are examples of which type of element
+
+A: Block level
+
+7: What do attributes tell us?
+
+A: something about the content of an element
+
+10: A definition list is a list of terms/meanings, Which element holds the term?
+
+A: <dt>
+
+13: What are the two components of an HTML attribute?
+
+A: Name,value
+
+27 How canyou keep an element in the same spot in a  browser window even if the user scrolls down?
+
+A: Fixed positioning
+
+28: What targets al HTML elements on a page?
+
+A: *
+
+31: In what way do percentages affect the dimensions of an HTML element's box
+
+A: Percents only affect the dimensions of a box if the element lives in another box with defined dimensions.
+
+50: Which is a local variable in the block of code?
+
+A: Val
+
+55: which correctly adds a key to the object?
+
+A: my Obj["name"] = "Simon";
+
+56: What best describes an object property?
+
+A: the category label for an item that belongs to an object
+
+58: what is the correct syntax for accessing the object?
+
+A: me["name"]

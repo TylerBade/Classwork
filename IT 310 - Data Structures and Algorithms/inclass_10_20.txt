@@ -1,0 +1,153 @@
+Tyler Bade
+
+# initialize mytree, root a, b root of left subtree, c root of right subree, d,e,f, subtrees below
+myTree = ['a', ['b', ['d', [],[]], ['e', [],[]]], ['c', ['f',[],[]], []]]
+
+#prints whole tree
+print(myTree)
+#prints subtree at root b
+print('left subtree = ' myTree[1])
+# prints root a
+print('root = ' myTree[0])
+# prints subtree at root c
+print('right subtree = ', myTree[2])
+
+pseudocode for prgm 1:
+
+make tree with preform notation abdecf
+
+print the tree
+
+print the left subtree root
+print tree root
+print the right subtree root
+
+
+# Initializes tree
+def BinaryTree(r):
+
+	return [r, [], []]
+
+# Inserts item at next open left node
+def insertLeft(root,newBranch):
+	
+	# takes the first value on the left if it exists
+	t = root.pop(1)
+
+	if len(t) > 1:
+		# if there is something in the left node, puts the new value in front of it
+		root.insert(1,[newBranch,t,[]])
+
+	else:
+		# if nothing is there, creates a new subtree
+		root.insert(1,[newBranch, [], []])
+
+	return root
+
+# inserts item at next open right node
+def insertRight(root,newBranch):
+	
+	#takes the first value on the right if it exists
+	t = root.pop(2)
+
+	if len(t) > 1:
+		#if there is something in the right node, the new value goes in front of it
+		root.insert(2,[newBranch,[],t])
+
+	else:
+		# if nothing is there, creates a new subtree
+		root.insert(2,[newBranch,[],[]])
+
+	return root
+
+# returns tree root
+def getRootVal(root):
+
+	return root[0]
+
+# sets a new root
+def setRootVal(root,newVal):
+
+	root[0] = newVal
+
+# gets the left root value
+def getLeftChild(root):
+
+	return root[1]
+
+# returns right root value
+def getRightChild(root):
+
+	return root[2]
+
+# Creates tree with 3 as root value
+r = BinaryTree(3)
+
+# inserts 4 on left
+insertLeft(r,4)
+
+# inserts 5 on left before 4
+insertLeft(r,5)
+
+# inserts 6 on right
+insertRight(r,6)
+
+# inserts 7 on right before 6
+insertRight(r,7)
+
+# sets l to the left subtree
+l = getLeftChild(r)
+
+print(l)
+
+# sets left subtree value to 9
+setRootVal(l,9)
+
+# prints whole tree
+print(r)
+
+# inserts 11 after 9
+insertLeft(l,11)
+
+# reprint
+print(r)
+
+#prints right subtree of right subtree
+print(getRightChild(getRightChild(r)))
+
+pseudocode for prgm 2:
+
+create tree with root value r and two open subnodes
+
+to insert at the left
+	if the node is full, put the new value in the occupied node and put the old value on the left node
+	otherwise put the new value in the empty node and create new empty nodes
+
+to insert at the right
+	if the node is full, put the new value in the occupied node and put the old value on the right node
+	otherwise put the new value in the empty node and create new empty nodes
+
+need a root return method
+
+need to be able to find the left child of the root
+
+need to be able to find the right child of the root
+
+test code:
+create a binary tree with 3 as initial root
+
+insert 4 and 5 on left
+
+insert 6 and 7 on right
+
+set a variable to the left subtree and print it
+
+set a new root for that subtree
+
+print the whole tree with new values
+
+insert a value into the subtree
+
+reprint tree
+
+get right child of right child

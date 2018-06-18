@@ -1,0 +1,14 @@
+Select employee's first name, last name and id who's first name is Mike, Tom, or Sarah.
+
+SELECT EMP_FIRST_NAME, EMP_LAST_NAME, EMP_ID
+FROM EMPLOYEE
+WHERE EMP_FIRST_NAME IN ('Mike', 'Tom', 'Sarah');
+
+5
+
+"EMP_FIRST_NAME"              "EMP_LAST_NAME"               "EMP_ID"                      
+"Mike"                        "Score"                       "4038"                        
+"Sarah"                       "Tollefson"                   "4059"                        
+"Tom"                         "Richardson"                  "4073"                        
+"Mike"                        "Lidberg"                     "4269"                        
+"Sarah"                       "Reese"                       "4444"                        

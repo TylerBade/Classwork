@@ -1,0 +1,53 @@
+IT 480 review:
+
+1: Create a venn diagram showing expected, observed and the area representing missing functions
+
+A: exp/obs are intercepting circles, missing in the middle where they intercept.
+
+2: explain static/dynamic testing
+
+A: dynamic: execute code, Static: inspects code
+
+3: explain whiteboxing and blackboxing are
+
+A: white-box: can see source code, black-box: cant see code
+
+4: does it make sense to black box static test?
+
+A: no, cant see, cant execute, cant test
+
+5: equivalence classes for signed int app, bounds 10k/100k
+
+A: 0-9999, 10000-99999, 100000+, < 0
+
+6: test cases
+
+A: 1 for each boundary, 1 middle, including < 0
+
+7: describe verification/validation
+
+A: Verification: Built the thing right, Validation: built what the customer wanted
+
+8: Why should defect-tracking systems use a unique int id to identify each bug?
+
+A: Bugs can change over time as our understanding does, but the id will not change, maintains same sort order over time (indicates age), serves as primary key, shorthand to refer to bugs
+
+9: Hypothesis test goes wrong, what next?
+
+A: new hypothesis, design new tests to gather data, test new hypothesis
+
+10: errors, faults, failures?
+
+A: error: Human gets something wrong, fault: takes form in code, Failure: output isnt expected. Error -> fault -> failure.
+
+12: bug severity/priority?
+
+A: severity: how bad is it (impact), priority: how important it is to fix, Priority more likely to change
+
+14: test case, suite, plans?
+
+A: case: single test, plan: group of test cases, suite: collection of plans
+
+16: off-by-one error?
+
+A: error where values are incorrectly specified or compared by a single unit, usually boundary cases

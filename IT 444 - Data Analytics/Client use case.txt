@@ -1,0 +1,5 @@
+USE CASE CLIENT
+
+For: Managers/property owners
+
+Purpose: To see which clients purchase and rent properties and how much.

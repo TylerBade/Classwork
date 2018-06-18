@@ -1,0 +1,15 @@
+"PART_NUM"                    "NUM_ORDERED"                 "ON_HAND"                     
+"AT94"                        "11"                          "50"                          
+"DR93"                        "1"                           "8"                           
+"DW11"                        "1"                           "12"                          
+"KL62"                        "4"                           "12"                          
+"KT03"                        "2"                           "8"                           
+"BV06"                        "2"                           "45"                          
+"CD52"                        "4"                           "32"                          
+"DR93"                        "1"                           "8"                           
+"KV29"                        "2"                           "9"                           
+"FD21"                        ""                            "22"                          
+"DL71"                        ""                            "21"                          
+
+SELECT PART_NUM, NUM_ORDERED, ON_HAND
+FROM PART LEFT JOIN ORDER_LINE USING (PART_NUM)

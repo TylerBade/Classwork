@@ -1,0 +1,50 @@
+Level 1
+
+Contractor 			(PK: Contractor_NO 	Number(4,0))
+Service 			(PK: Service_NO 	Number(4,0))
+Private Owner			(PK: Owner_No 		Varchar(4))
+Parking type			(PK: Parking_Type_ID	Varchar(5))
+branch				(PK: Branch_NO		Number(4,0))
+position			(PK: Position_NO	Number(4,0))
+relationship			(PK: Relationship_Type 	Varchar(4))
+client source			(PK: Source_Type	Varchar(4))
+potential client		(PK: potential_clientno Number(10,0))
+inquiry type			(PK: TypeNO		Number(5,0))
+inquiry action			(PK: Inquiry_actionNO	Number(10,0))
+payment method			(PK: Payment_type_NO	Number(2,0))
+financial institution		(PK: Institute_ID	Number(4,0))
+
+
+Level 2
+
+Service COntractor		(PK: Service_contract_no	Number(4,0), FKs: Contractor_NO, Service_NO)
+Staff				(PK: Staff_NO			Number(4,0), FKs: Position_NO, Branch_NO)
+Client				(PK: CLient_NO			Number(4,0), FKs: Source_Type)
+Potential client inquriry	(PK: Potential_client_inqno	Number(10,0), FKs: Potential_client_no)
+
+LEvel 3
+
+Property			(PK Property_NO	Varchar(5), 				FKs: Staff_No, Owner_NO, Parking_type_id, branch_no)
+Registration			(PK Composite	(Staff_NO, Client_NO), 			FKs: Staff_NO, CLient_NO)
+Client relationships		(PK Composite	(client_no1, Client_No2) 		FKs: CLient_No(2), Relationship_Type)
+clinet inquiry			(PK InquiryNO	Number(10,0) ,				FKs: Client_no)
+buyer				(Subtable: Client)
+renter				(Subtable: Client)
+potential client inqury type	(PK Composite	(Potential_Client_inqNO, TypeNO)	FKs: Potential_Client_InqNo, TypeNO)
+potential client staff		(PK Composite	(Potential_Client_InqNO, StaffNO)	FKs: Potential_client_InqNO, Staff_NO, Inquiry_actionNO)
+
+Level 4
+
+Repair				
+Client inquriy staff		(PK Composite	(InquiryNO, Staff_NO)			FKs: InquiryNO, Staff_NO, Inquiry_actionNO)
+Client viewing			(PK Composite	(CLient_No, Property_NO)		FKs: Client_NO, Property_NO)
+potential viewing		(PK Composite	(Potential_clientNO, Property_NO)	FKs: Potential_client_no, Property_NO)
+lease				(PK Lease_NO 	Number(6,0)				FKs: Property_No, CLient_NO)
+client inquiry type		(PK Composite	(InquiryNO, Type_NO)			FKs: InquiryNO, TypeNO)
+sales				(PK Purchase_NO	Number(4,0)				FKs: Property_no, Client_NO, Institute_ID, Staff_NO)
+
+Level 5
+
+COntract			(PK Composite	(Repair_NO, COntractor_NO)	FKs: Repair_No, COntractor_No)
+Repair inquiry			(PK Composite	(InquiryNO, Repair_NO)		FKs: Inquiry_NO, Repair_No)
+receipt				(PK Receipt_No	Number(6,0)			Fks: Lease_No, Payment_type_No)

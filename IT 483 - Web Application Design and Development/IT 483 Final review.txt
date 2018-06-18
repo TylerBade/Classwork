@@ -1,0 +1,118 @@
+To study:
+
+Media queries/responsive frameworks
+JSON/AJAX
+Node.js
+Web DB/Mongo
+Angular.js
+Web Design Principles
+Security
+XSS Attacks
+
+
+1) What does this print:
+Var sys = require("sys");
+setTimeout(function() {sys.puts("hello");} 3000);
+sys.puts("world");
+
+A: world hello
+
+3) What does HTTPS guarantee to these three users: Client, Server, Easedropper?
+
+A: Easedropper cannot view information sent by the Client or Server.
+
+4) Why is HTTP a stateless protocol?
+
+A: it does not require the server to retain session information, each request can be understood alone
+
+5) Why are wireframe diagrams handrawn or look hand-drawn?
+
+A: So that you can get feed back on functionality rather than design.
+
+6) Why is the node.js require() function bocking, when all other I/O in node.js is non-blocking?
+
+A: require() calls the nodes that are needed for the function to run, and if it does not block, code that requires that node may run before it is called.
+
+7) MongoDB collection, document, and database are related to each other?
+
+A: Collection = Group of documents, Database = group of collections
+
+8) If a designer creates several different "user personas" for a site, what does that say about their expected demographics for that site?
+
+A: More than one target audience
+
+9) Why did node.js not appear until around 2010? if it had been written before, what would've been different about it?
+
+A: Javascript got faster. Would've been super slow.
+
+10) Why should username/password be sent using HTTPS protocol instead of HTTP Basic Auth?
+
+A: HTTPS is more secure, basic auth just sends it "encrypted" text
+
+11) How and why are media queries used in responsive design
+
+A: can render differently on different size screens
+
+12) what is the essential difference between a persistent and session cookie?
+
+A: Persistent lasts between sessions, has an expiration date, session only last till the site is closed
+
+13) Basic data format of a mongoDB Database?
+
+A: JSON
+
+14) What is a better alternative to storing passwords in an encrypted form? why is it better?
+
+A: Storing password hashes, that are salted, more layers of security.
+
+15) Difference between authentication and authorization?
+
+A: Authentication: Prove who you are, Authorization: Allowing access if you are who you are.
+
+16) Why should passwords never be stored in an encrypted form?
+
+A: Encryption can be broken, and is more obvious
+
+17) When can a web browser delete cookies?
+
+A: When the browser is told to by the user, or when you enter a site with an expired cookie, or when the cookie is modified not by the site itself.
+
+18) What is the important difference between an "Embedded" database and an "external" database.
+
+A: Embedded: Embedded into the application, talks to faster, External: Independent application, usually slower to talk to
+
+19) Define visual Heirarchy.
+
+A: The order your eyes see things on the website.
+
+20) Anonymous function and use in node.js?
+
+A: No name function, acts like a function, but is called right there.
+
+21) explain err and result parameters in Node.js
+
+A: err returns errors that occur during the error, result sends back the end result of the function, both specifically for input and output functions
+
+22) explain the concept of "non-blocking I/O", why does it help programmers?
+
+A: Launches slow running code in the background and runs next line, can write faster code.
+
+23) explain the concept of event emitters in Node.js, and what are they designed to solve?
+
+A: gives callback functions data in small chunks, used for large chunks of data being called
+
+24) Which parts of SQL do NoSQL databases sacrifice to tackle the problem of "scaling out?"
+
+A: Limitation of copies, NoSQL doesn't always gie the most accurate version
+
+25) Explain how the name/value pairs are used when an HTML form is filled out and submitted to a web server
+
+A: the server can use the names of the form's attributes to select the values that it will use as data.
+
+26) why are database api's often considered a very leaky abstraction of an API?
+
+A: Sometimes takes a long time to do stuff, which means stuff is happening under the hood
+
+27) What concepts or terms from the field of a user interface design is a layout grid using, such that our eyes think that a site developed using it looks professional?
+
+A: Proximity, alignment, closure, white space, color, borders

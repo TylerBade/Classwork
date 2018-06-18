@@ -1,0 +1,44 @@
+Select the vet ID number, first name and last name of all vets.
+
+
+SELECT VET_ID, VET_FIRST_NAME, VET_LAST_NAME
+FROM VET;
+
+35
+
+"VET_ID"                      "VET_FIRST_NAME"              "VET_LAST_NAME"               
+"6235"                        "Britney"                     "Reynolds"                    
+"6625"                        "Michael"                     "Weaver"                      
+"6638"                        "Brent"                       "Wade"                        
+"6274"                        "Kari"                        "Gregory"                     
+"6287"                        "Michael"                     "Sampson"                     
+"6300"                        "Pam"                         "Reid"                        
+"6313"                        "Steve"                       "Connor"                      
+"6573"                        "Ann"                         "Moore"                       
+"6586"                        "Dave"                        "Moon"                        
+"6352"                        "Debra"                       "Cain"                        
+"6495"                        "Bryan"                       "Booth"                       
+"6508"                        "Kelsey"                      "Smith"                       
+"6391"                        "Daniel"                      "Schultz"                     
+"6404"                        "Shawn"                       "Newell"                      
+"6317"                        "Megan"                       "Finley"                      
+"6730"                        "Gregory"                     "Moss"                        
+"6443"                        "Emma"                        "Tyson"                       
+"6856"                        "Mark"                        "Frank"                       
+"6969"                        "James"                       "Simmons"                     
+"6482"                        "Shannon"                     "Norwood"                     
+"6248"                        "Ruth"                        "Mayfield"                    
+"6261"                        "Tim"                         "Hawkins"                     
+"6521"                        "Adam"                        "Vang"                        
+"6334"                        "Kathy"                       "Alpert"                      
+"6547"                        "Bruce"                       "Sanderson"                   
+"6160"                        "Travor"                      "Olsen"                       
+"6326"                        "Mary"                        "Samuels"                     
+"6339"                        "Ron"                         "Charles"                     
+"6599"                        "Rachel"                      "Lawrence"                    
+"6612"                        "Erik"                        "House"                       
+"6265"                        "Danielle"                    "Gates"                       
+"6378"                        "Dale"                        "Tanner"                      
+"6651"                        "Sarah"                       "Krueger"                     
+"6664"                        "Kim"                         "Crane"                       
+"6577"                        "Dave"                        "Rowe"                        

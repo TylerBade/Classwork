@@ -1,0 +1,66 @@
+Sort times:
+
+Normal sort function (Last Name (Default compareTo))
+100: 0 milliseconds
+1000: 0 milliseconds
+10k: 16 milliseconds
+100k: 94 milliseconds
+1m: 631 milliseconds
+
+Normal sort function (First Name Comparator)
+100: 0 milliseconds
+1000: 15 milliseconds
+10k: 31 milliseconds
+100k: 109 milliseconds
+1m: 1084 milliseconds
+
+Normal sort function (PNComparator)
+100: 0 milliseconds
+1000: 16 milliseconds
+10k: 22 milliseconds
+100k: 109 milliseconds
+1m: 899 milliseconds
+
+Reporting on default Sort function: (Collections.sort(directory, *Type*Comparator())) vs Collections.sort(directory)
+
+Just a default compareTo method is faster at sorting an ArrayList of objects than a Comparator, but is has a default sorting value,
+whereas Comparators can be made for any other properties of an object to sort.
+
+Binary Search times (Collection method (First name) )
+1000: 0 milliseconds
+10k: 0 milliseconds
+100k: 0 milliseconds
+1m: 0 milliseconds
+
+The time to complete a binary search in a list of any size being tested will be quick, as it is a log(n) time to complete.
+The problem I experienced was a NullPointerException whihc wouldnt allow me to search by any other property.
+
+Binary search times (Custom methods)
+
+FN: 5495 options, no matches
+100: 0
+1000: 16 millis
+10k: 0 millis
+100k: 0 millis
+1m: 0 millis
+
+LN: 88800 options, no matches
+100: 0 millis
+1000: 0 millis
+10k: 0 millis
+100k: 0 millis
+1m: 16 millis
+
+PN: 384 area codes w/ 8999999 options for last 7 digits, no matches
+100:0 millis
+1000: 16 millis
+10k: 0 millis
+100k: 0 millis
+1m: 0 millis
+
+Results
+No matches in any of them, one value used out of all potential outcomes.
+
+Report: time for the three methods to complete their search was relatively consistent, an occasional anomaly occured, but didn't interfere that much.
+
+Program does return values, one test while trying to make sure system inputs worked rendered 8 results with the same name, so it will return matches.

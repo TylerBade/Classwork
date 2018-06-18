@@ -1,0 +1,12 @@
+body {
+	background-color: deepSkyBlue;
+}
+
+li::first-letter {
+	font-size: 200%;
+}
+
+ul {
+	list-style-type: none;
+	text-align: center;
+}

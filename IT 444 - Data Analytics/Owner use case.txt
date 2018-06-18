@@ -1,0 +1,5 @@
+Owner Use case
+
+For: Clients, staff
+
+Purpose: To see what Owners have sold the most properties.

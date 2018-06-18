@@ -1,0 +1,22 @@
+All X values are the same, Alex can't be a triangle.
+
+All Y values are the same, Randi can't be a triangle.
+
+The triangle is Sally
+Veteces: (-4.0, 0.0) (4.0, 0.0) (0.0, 6.9282)
+Side 1: 8.00
+Side 2: 8.00
+Side 3: 8.00
+
+The triangle is FredEQ
+Veteces: (-2.161, -3.366) (2.161, 3.366) (-5.83, 3.743)
+Side 1: 8.00
+Side 2: 8.00
+Side 3: 8.00
+
+The triangle is Bob
+Veteces: (3.54, 5.46) (-4.54, 5.557) (3.1, -2.1)
+Side 1: 8.08
+Side 2: 10.82
+Side 3: 7.57
+

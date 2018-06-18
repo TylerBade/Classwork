@@ -1,0 +1,9 @@
+Additions:
+
+PropertyForRent --> Property:
+	Subtypes
+		ForRent
+			RentAmnt
+		ForSale
+			AskingPrice
+PurchaseAgreement

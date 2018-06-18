@@ -1,0 +1,4 @@
+INSERT INTO SUV
+SELECT 1,'Ford','Explorder','932ABC'
+INSERT INTO SUV
+SELECT 7,'Honda','Accord','109CDL'

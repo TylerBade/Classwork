@@ -1,0 +1,58 @@
+1)
+Root: /user/rt/courses/
+Internal nodes: cs016/, homeworks/, programs/, cs252/, projects/, papers/, demos/
+Node cs016 decendants: grades, homeworks/, hw1, hw2, hw3, programs/, pr1, pr2, pr3
+Node cs016 ancestors: /user/rt/courses/
+Node homework siblings: grades, programs/
+subtree rooted at node projects: papers/
+depth of node papers: 4
+height of the tree: 5
+
+2:
+	E
+     X	   N
+   A   U
+ M   F
+
+3:
+Preorder visiting: - / X + 3 4 3 + - 9 5 2 + X 3 - 7 4 6
+Postorder: 3 1 + 3 X 9 5 - 2 + / 3 7 4 - X 6 + -
+
+4:
+preorder._next(v)
+	if v is internal then
+	 	return v's left child
+	else
+		p = parent of v
+		if v is left child of p then
+			return right child of p
+	else
+		while v is not left child of p do
+			v = p
+			p = p.parent
+		return right child of p
+
+postorder._next(v)
+	if v is internal then
+		return left child
+	else
+		p = parent of v
+		if v is left child
+			return right child
+	else
+		while v is not child of p
+			v = p
+			p = p.parent
+			return right child of p
+
+inorder._next(v)
+	if v is internal then
+		return left child
+	else p = parent of v
+		if v is left child
+			return p
+	else
+		while v is not child of p
+		v = p
+		p = p.parent
+		return right child of p

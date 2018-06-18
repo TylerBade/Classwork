@@ -1,0 +1,13 @@
+In Class Practice 10/10/16
+
+a) Preorder Traverse
+
+PQSRTUWV
+
+b) Inorder
+
+SQPTWURV
+
+c) Postorder
+
+SQTWUVRP

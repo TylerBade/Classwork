@@ -1,0 +1,26 @@
+USE [OES]
+GO
+/****** Object:  StoredProcedure [dbo].[ORDERCOUNT]    Script Date: 2/12/2018 7:54:23 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+ALTER PROCEDURE [dbo].[ORDERCOUNT] 
+	-- Add the parameters for the stored procedure herE
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+    -- Insert statements for procedure here
+	SELECT C.CUSTOMER_NO, C.FNAME, C.LNAME, COUNT(O.ORDER_NO) AS NUM_ORDERS
+	FROM CUSTOMER C
+	INNER JOIN ORDERS O ON C.CUSTOMER_NO = O.CUSTOMER_NO
+	GROUP BY C.CUSTOMER_NO, C.FNAME, C.LNAME;
+END

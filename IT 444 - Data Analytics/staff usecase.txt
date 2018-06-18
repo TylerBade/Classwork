@@ -1,0 +1,5 @@
+USE Case Staff
+
+Actor: Manager
+
+Action: See which staff has sold what properties

@@ -1,0 +1,36 @@
+body {
+	background-color: rgb(54, 67, 113);
+}
+
+#wrap {
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-bottom: 10%;
+	margin-top: -1%;
+	overflow: hidden
+}
+
+#nav {
+	float:left;
+	width: 25%;
+	height: 415px;
+	background-color: rgb(176, 207, 255);
+}
+
+#content {
+	overflow: hidden;
+	width: 75%;
+	height: 415px;
+	background-color: rgb(91, 127, 189);
+	text-align: center;
+}
+
+#content ul {
+	list-style-type: none;
+}
+#content .copyright {
+	position: absolute;
+	text-align: right;
+	margin-left: 20px;
+	margin-top: 20px;
+}

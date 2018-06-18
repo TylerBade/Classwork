@@ -1,0 +1,39 @@
+BUGS:
+lowercase n doesnt work
+"H" doesnt work
+Can find same item twice - May not be a bug
+Teleport back to beginning if north at top/south at bottom
+
+FUN-ITERATION:
+Can use: N,S,L,I,D
+Cant use: H
+
+FUN-INPUT-CAPS:
+Cannot use n
+
+FUN-MOVE:
+teleports to beginning if using north/south at top/bottom
+
+FUN-WIN
+coffee/cream/sugar-win
+
+FUN-LOSE
+none - lose
+coffee-lose
+cream-Lose
+sugar-lose
+coffee/cream-lose
+coffee/sugar-lose
+cream/sugar-lose
+
+FUN-LOOK
+L works in each room
+
+FUN-HELP
+H does not work
+
+FUN-UNIQ-ROOM
+Rooms are unique
+
+FUN-UNIQ-ROOM-FURNISHING
+Rooms have unique furnishings

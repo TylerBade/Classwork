@@ -1,0 +1,17 @@
+"ORDER_NUM"                   "ORDER_DATE"                  "CUSTOMER_NUM"                
+"21608"                       "20-OCT-03"                   "148"                         
+"21610"                       "20-OCT-03"                   "356"                         
+"21613"                       "21-OCT-03"                   "408"                         
+"21614"                       "21-OCT-03"                   "282"                         
+"21617"                       "23-OCT-03"                   "608"                         
+"21619"                       "23-OCT-03"                   "148"                         
+"21623"                       "23-OCT-03"                   "608"                         
+"5003 "                       "19-APR-16"                   "148"                         
+
+CREATE OR REPLACE PROCEDURE PRC_ORDER_ADD (ORDER_DATE IN DATE, CUSTOMER_NUM IN VARCHAR2)
+AS BEGIN
+  INSERT INTO ORDERS
+      VALUES(ORDERS_SEQ.NEXTVAL, ORDER_DATE, CUSTOMER_NUM);
+  DBMS_OUTPUT.PUT_LINE('Order added');
+END PRC_ORDER_ADD;
+

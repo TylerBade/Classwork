@@ -1,0 +1,46 @@
+IQR = 11.5
+
+low=-4.25
+high=41.75
+
+//outliers <> IQR *1.5
+
+//variance formula -- s^2 = sum((x-mean)^2) / [sample size]-1
+
+1,2,3,4,5
+
+mean = 3
+
+-2,-1,0,1,2
+4,1,0,1,4
+
+sum of squares = 10
+
+s^2 = 2.5
+
+//sd = sqrt(variance)
+
+1,3,5
+mean=3
+-2,0,2
+
+4,0,4
+
+sumofsquares=8
+
+variance = 8/2 = 4
+
+sd = sqrt(4) = 2
+
+//ZSCORE = (x-avg(x)) / s (Standard deviation)
+//z scores must add up to 0
+//68 between 1/-1, 95 between 2/-2, 99 between 3/-3 for bell curves
+//75 within 2, 89 within 3 standard
+
+z= 19.3-15 /2.5 = 1.72: team 1
+
+z= 19.3-15/8 = .5375: team 2
+
+// Standardization: replace scores with scores expressed by standard deviations from mean.
+
+

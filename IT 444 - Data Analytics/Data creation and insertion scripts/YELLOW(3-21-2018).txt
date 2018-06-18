@@ -1,0 +1,843 @@
+/*------------------------------DATA GOVERNANCE INFORMATION------------------------------*/
+
+	/*DATE CREATED*/	/* 02-20-2018 */
+	/*LAST UPDATED*/	/* 03-21-2018 */
+	/*UPDATED BY*/		/*Mithila Bamunu (Yellow Team)*/
+
+	/*---------------------UPDATE LOG---------------------*/
+
+/*
+
+--UPDATE_DATE--			--UPDATED_BY--					                        --DESCRIPTION OF UPDATE--
+
+  03/21/2018			    Mithila Bamunu (Yellow Team)					  Added records: Updated INSERT scripts for tables
+													  "CLIENT", and "BUYER".
+
+													  Added 10 records to to "CLIENT" using "PRIVATE_OWNER" table provided by the Orange Team.
+													  (To reflect that owners can be clients too.)
+													
+													  Updated "BUYER" table: Changed the CREATE TABLE script for "BUYER" table.
+													  The "REALTOR_CERTIFICATION" attribute was removed.
+													  "OWNER_NO" attribute was added.
+
+													  Integrity: Added ALTER command to ensure "OWNER_NO" FK2 in "BUYER" references "PRIVATE_OWNER" table.
+													  The new ALTER command is on DISABLE.
+													  (Until all scripts are merged. "PRIVATE_OWNER" is owned by Orange Team.)
+.............................................................................................................................................................................................................
+  
+  03/20/2018			    Mithila Bamunu (Yellow Team)					  Added records: Updated INSERT scripts for tables 																				  "CLIENT","CLIENT_SOURCE","RELATIONSHIP","CLIENT_RELATIONSHIPS","BUYER","RENTER".
+															
+													  Added 20 records to "CLIENT" using "STAFF" table provided by the Blue Team.
+                                                                      					  (To reflect that staff members can be clients too.)
+
+.............................................................................................................................................................................................................
+  
+  03/20/2018			    Mithila Bamunu (Yellow Team)		  	            	  Added tables: "RELATIONSHIP","CLIENT_RELATIONSHIPS", "CLIENT_SOURCE".
+
+                                                                      				    	  Removed tables: "REALTOR", "RENT", "PAYMENT_METHOD".
+
+                                                                      					  Integrity: Added ALTER commands to ensure referential ingrity between new and old tables.
+
+*/
+
+
+
+/*------------------------------DROP TABLE COMMANDS---------------------------*/
+
+DROP TABLE "CLIENT" CASCADE CONSTRAINTS;
+DROP TABLE "CLIENT_RELATIONSHIPS" CASCADE CONSTRAINTS;
+DROP TABLE "RELATIONSHIP" CASCADE CONSTRAINTS;
+DROP TABLE "BUYER" CASCADE CONSTRAINTS;
+DROP TABLE "RENTER" CASCADE CONSTRAINTS;
+DROP TABLE "CLIENT_SOURCE" CASCADE CONSTRAINTS;
+
+/*------------------------------CREATE CLIENT TABLE---------------------------*/
+
+CREATE TABLE CLIENT
+( 	
+	CLIENT_NO 		NUMBER(4,0)  NOT NULL,
+	CLIENT_FNAME       	VARCHAR(20)  NOT NULL,
+	CLIENT_LNAME       	VARCHAR(20)  NOT NULL,
+	CLIENT_STREET_ADDRESS   VARCHAR(35)  NULL,
+	CLIENT_CITY_ADDRESS     VARCHAR(20)  NULL,
+	CLIENT_STATE       	VARCHAR(2)   NULL,
+	CLIENT_POSTCODE        	NUMBER(5,0)  NULL,
+	CLIENT_TELEPHONE      	NUMBER(10,0) NOT NULL,
+	CLIENT_GENDER		VARCHAR(4)   NULL,
+	PREF_TYPE		VARCHAR(4)   NOT NULL,
+	STUDENT_STATUS		VARCHAR(4)   NULL,
+	SOURCE_TYPE		VARCHAR(4)   NOT NULL,
+	CONSTRAINT CLIENT_PK PRIMARY KEY(CLIENT_NO)
+);
+
+
+
+/*------------------------------CREATE BUYER TABLE---------------------------*/
+
+CREATE TABLE BUYER
+( 	
+	CLIENT_NO 		NUMBER(4,0) NOT NULL,
+	OWNER_NO		VARCHAR(4)  NULL,
+	CONSTRAINT BUYER_PK PRIMARY KEY(CLIENT_NO)
+);
+
+/*------------------------------CREATE RENTER TABLE---------------------------*/
+
+CREATE TABLE RENTER
+
+( 	
+	CLIENT_NO 		NUMBER(4,0) NOT NULL,
+	UNITS_RENTED		NUMBER(2,0) NOT NULL,
+	CONSTRAINT RENTER_PK PRIMARY KEY(CLIENT_NO)
+);
+
+/*------------------------------CREATE RELATIONSHIP TABLE---------------------------*/
+
+CREATE TABLE RELATIONSHIP
+( 	
+	RELATIONSHIP_TYPE 	Varchar(4) NOT NULL,
+	RELATIONSHIP_DESC	Varchar(20) NOT NULL,
+	CONSTRAINT RELATIONSHIP_PK PRIMARY KEY(RELATIONSHIP_TYPE)
+);
+
+/*------------------------------CREATE CLIENT_RELATIONSHIPS TABLE---------------------------*/
+
+CREATE TABLE CLIENT_RELATIONSHIPS
+( 	
+	CLIENT_NO_1 		Number(4,0) NOT NULL,
+	CLIENT_NO_2 		Number(4,0) NOT NULL,
+	RELATIONSHIP_TYPE	Varchar(4) NOT NULL,
+	CONSTRAINT CLIENT_RELATIONSHIPS_PK PRIMARY KEY(CLIENT_NO_1,CLIENT_NO_2)
+);
+
+/*------------------------------CREATE CLIENT_SOURCE TABLE---------------------------*/
+
+CREATE TABLE CLIENT_SOURCE
+( 	
+	SOURCE_TYPE 		Varchar(4) NOT NULL,
+	SOURCE_DESC		Varchar(20) NOT NULL,
+	CONSTRAINT CLIENT_SOURCE_PK PRIMARY KEY(SOURCE_TYPE)
+);
+
+/*------------------------------POPULATE CLIENT TABLE---------------------------*/
+
+INSERT INTO CLIENT VALUES	(1009	,'Rodolph'	,'Arp'	,'1 Acker Trail'	,'Mobile'	,'AL'	,36605	,2261074588	,'M'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1013	,'Maura'	,'Avramovitz'	,'969 Gulseth Alley'	,'Sacramento'	,'CA'	,95833	,2928364121	,'F'	,'Y'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1015	,'Karly'	,'Balchen'	,'27 Emmet Parkway'	,'Nashville'	,'TN'	,37220	,2798597046	,'F'	,'Y'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1017	,'Ingram'	,'Barensky'	,'36 Anderson Drive'	,'Pittsburgh'	,'PA'	,15279	,9126745626	,'M'	,'N'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1018	,'Marni'	,'Barents'	,'161 Rowland Court'	,'Rochester'	,'NY'	,14639	,9896814820	,'F'	,'Y'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1021	,'Garvin'	,'Belchamber'	,'21 Burrows Hill'	,'Anchorage'	,'AL'	,99599	,8006789853	,'M'	,'Y'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1025	,'Cherrita'	,'Bernhart'	,'29131 Tomscot Pass'	,'Dallas'	,'TX'	,75251	,5871952207	,'F'	,'N'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1029	,'Vanda'	,'Blewis'	,'3836 Susan Hill'	,'Chattanooga'	,'TN'	,37410	,6618000978	,'F'	,'N'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1030	,'Jesse'	,'Boater'	,'057 Vermont Circle'	,'Atlanta'	,'GA'	,31136	,5439336752	,'M'	,'Y'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1037	,'Jaquelyn'	,'Breslau'	,'760 Loomis Street'	,'Peoria'	,'IL'	,61651	,3605303159	,'F'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1040	,'Augie'	,'Brinicombe'	,'77818 Iowa Park'	,'Atlanta'	,'GA'	,30323	,6467551481	,'M'	,'Y'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1044	,'Denis'	,'Burdis'	,'37 Warbler Parkway'	,'Helena'	,'MT'	,59623	,4623952328	,'M'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1045	,'Maighdiln'	,'Burnall'	,'9 Reinke Point'	,'Warren'	,'MI'	,48092	,2636121427	,'F'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1046	,'Jose'	,'Burnhill'	,'30 Graceland Center'	,'West Palm Beach'	,'FL'	,33421	,9753933565	,'M'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1047	,'Sherwood'	,'Cabotto'	,'2 Banding Drive'	,'Jeffersonville'	,'IN'	,47134	,9123262900	,'M'	,'Y'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1049	,'Brittani'	,'Carl'	,'0 Hoard Lane'	,'Topeka'	,'KS'	,66603	,6273647873	,'F'	,'Y'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1051	,'Babs'	,'Caudrey'	,'8 PA Circle'	,'Rochester'	,'NY'	,14609	,1638897455	,'F'	,'Y'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1054	,'Lissy'	,'Cawley'	,'277 Mariners Cove Court'	,'Miami'	,'FL'	,33158	,4292772110	,'F'	,'Y'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1055	,'Alon'	,'Chappelow'	,'4 International Terrace'	,'Burbank'	,'CA'	,91505	,9469991014	,'M'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1056	,'Skelly'	,'Chaudron'	,'80951 3rd Trail'	,'Portland'	,'OR'	,97240	,9613354796	,'M'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1062	,'Addie'	,'Cockrell'	,'5 Nobel Drive'	,'El Paso'	,'TX'	,79950	,6547849796	,'M'	,'N'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1069	,'Luciano'	,'Corston'	,'042 Nevada Way'	,'WA'	,'DC'	,20220	,5025831267	,'M'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1072	,'Esteban'	,'Cunnell'	,'86474 Morning Place'	,'Nashville'	,'TN'	,37250	,8737198375	,'M'	,'N'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1073	,'Georges'	,'Daintith'	,'9 Fallview Drive'	,'Maple Plain'	,'MN'	,55572	,6042836740	,'M'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1076	,'Killy'	,'Davitashvili'	,'47534 Dwight Pass'	,'Independence'	,'MO'	,64054	,8332709153	,'M'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1077	,'Jefferey'	,'De Haven'	,'534 Havey Way'	,'Oakland'	,'CA'	,94660	,7925608070	,'M'	,'N'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1081	,'Thorstein'	,'Descroix'	,'1 Lake View Alley'	,'Albany'	,'NY'	,12255	,8658091473	,'M'	,'N'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1083	,'Witty'	,'Dmych'	,'5647 Forest Run Plaza'	,'Fresno'	,'CA'	,93794	,9678514041	,'M'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1087	,'Dannye'	,'Dryden'	,'46775 Ridgeview Junction'	,'Evansville'	,'IN'	,47732	,8601183727	,'F'	,'N'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1093	,'Siobhan'	,'Eich'	,'0662 Westend Circle'	,'Tacoma'	,'WA'	,98447	,2052180577	,'F'	,'N'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1096	,'Angil'	,'Elvy'	,'5 Columbus Drive'	,'Inglewood'	,'CA'	,90398	,3801685138	,'F'	,'N'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1103	,'Meggie'	,'Flockhart'	,'7816 Corben Pass'	,'Yakima'	,'WA'	,98907	,5065757023	,'F'	,'Y'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1107	,'Steward'	,'Foulger'	,'11 Blue Bill Park Road'	,'Des Moines'	,'IA'	,50315	,9632500141	,'M'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1111	,'Mufi'	,'Fyfe'	,'7439 Sundown Center'	,'INpolis'	,'IN'	,46266	,2083047720	,'F'	,'N'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1122	,'Caressa'	,'Glossup'	,'165 Del Mar Center'	,'Saint Paul'	,'MN'	,55188	,3902769119	,'F'	,'N'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1123	,'Hedda'	,'Gorhardt'	,'79512 Northwestern Trail'	,'Jamaica'	,'NY'	,11499	,1851287895	,'F'	,'Y'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1128	,'Bryon'	,'Grindell'	,'8 Quincy Circle'	,'Fargo'	,'ND'	,58122	,6054060470	,'M'	,'Y'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1139	,'Elvin'	,'Hedgeman'	,'9818 Maywood Alley'	,'Houston'	,'TX'	,77250	,9169127614	,'M'	,'N'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1140	,'Benson'	,'Herculson'	,'5020 Hanover Point'	,'Portland'	,'OR'	,97286	,2144809468	,'M'	,'Y'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1146	,'Wald'	,'Huggins'	,'0 Elmside Terrace'	,'Virginia Beach'	,'VA'	,23464	,7201669262	,'M'	,'N'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1147	,'Dinah'	,'Hulmes'	,'39 Caliangt Point'	,'Newark'	,'NJ'	,07104	,3047735643	,'F'	,'Y'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1149	,'Fanchon'	,'Ipplett'	,'00119 Westend Terrace'	,'Greensboro'	,'NC'	,27404	,8319499868	,'F'	,'N'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1150	,'Khalil'	,'Itzig'	,'22383 Manley Place'	,'Minneapolis'	,'MN'	,55480	,8702123778	,'M'	,'N'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1153	,'Devi'	,'Jirick'	,'731 Atwood Crossing'	,'Columbus'	,'OH'	,43210	,7124628383	,'F'	,'Y'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1154	,'Ariel'	,'Josey'	,'01 Dahle Place'	,'Sacramento'	,'CA'	,95852	,2908677927	,'F'	,'N'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1160	,'Nicolette'	,'Keward'	,'35 Marquette Crossing'	,'Huntington'	,'WV'	,25770	,4089289701	,'F'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1162	,'Alfie'	,'Kilty'	,'497 Mockingbird Drive'	,'Sacramento'	,'CA'	,95838	,6926885373	,'F'	,'N'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1164	,'Darren'	,'Klainman'	,'70289 Oneill Road'	,'Stamford'	,'CT'	,06912	,1362750110	,'M'	,'Y'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1172	,'Jay'	,'Larkings'	,'5 Gerald Way'	,'Portland'	,'OR'	,97229	,4464931208	,'M'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1175	,'Nil'	,'Laverock'	,'320 Prentice Avenue'	,'Valley Forge'	,'PA'	,19495	,5467883491	,'M'	,'N'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1176	,'Humbert'	,'Le Floch'	,'767 John Wall Way'	,'Muncie'	,'IN'	,47306	,5908063493	,'M'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1182	,'Prentiss'	,'Lohoar'	,'5849 New Castle Court'	,'San Antonio'	,'TX'	,78220	,6722099508	,'M'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1183	,'Cornie'	,'Lorenzin'	,'864 Northview Avenue'	,'Worcester'	,'MA'	,01610	,8736830416	,'F'	,'Y'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1188	,'Tierney'	,'MacMurray'	,'18458 Crowley Plaza'	,'Philadelphia'	,'PA'	,19120	,3053304018	,'F'	,'N'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1190	,'Cybill'	,'Maltman'	,'081 Mandrake Terrace'	,'Spokane'	,'WA'	,99205	,9865526716	,'F'	,'N'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1192	,'Mireille'	,'Marcoolyn'	,'521 Coolidge Court'	,'Pocatello'	,'ID'	,83206	,5892034381	,'F'	,'Y'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1193	,'Ninon'	,'Matanin'	,'9 Chinook Way'	,'Las Vegas'	,'NV'	,89135	,4113544376	,'F'	,'N'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1195	,'Ransom'	,'Matterdace'	,'32 Bellgrove Circle'	,'San Diego'	,'CA'	,92110	,7046897362	,'M'	,'N'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1199	,'Gaylene'	,'Melvin'	,'344 Johnson Street'	,'Fort Wayne'	,'IN'	,46857	,4729214538	,'F'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1200	,'Lindsey'	,'Mixture'	,'10 Buhler Junction'	,'Colorado Springs'	,'CO'	,80925	,2745876018	,'F'	,'N'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1201	,'Janela'	,'Mott'	,'26 Clarendon Way'	,'Philadelphia'	,'PA'	,19131	,8601601644	,'F'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1204	,'Lindon'	,'Murden'	,'852 Crowley Lane'	,'Gulfport'	,'MS'	,39505	,7799930135	,'M'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1210	,'Sandra'	,'Noell'	,'4 Waywood Lane'	,'Farmington'	,'MI'	,48335	,5978952427	,'F'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1218	,'Bunny'	,'Peasnone'	,'865 Village Green Parkway'	,'Littleton'	,'CO'	,80126	,4941792400	,'F'	,'N'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1221	,'Ceil'	,'Pendrich'	,'6894 International Road'	,'Kingsport'	,'TN'	,37666	,2124539073	,'F'	,'N'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1223	,'Maje'	,'Petchell'	,'23 Waxwing Terrace'	,'Atlanta'	,'GA'	,31136	,5635174206	,'F'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1224	,'Granville'	,'Petroff'	,'24261 Moland Park'	,'Fresno'	,'CA'	,93762	,2445990535	,'M'	,'N'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1228	,'Mora'	,'Pimlock'	,'2 Shelley Court'	,'Sacramento'	,'CA'	,95813	,4149369737	,'F'	,'N'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1233	,'Celinda'	,'Pollack'	,'8065 8th Pass'	,'Cleveland'	,'OH'	,44185	,1228060505	,'F'	,'Y'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1235	,'Binnie'	,'Preon'	,'0012 Straubel Park'	,'Cedar Rapids'	,'IA'	,52405	,6652035709	,'F'	,'N'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1239	,'Fredrika'	,'Rawls'	,'46 East Lane'	,'Louisville'	,'KY'	,40210	,5688760953	,'F'	,'N'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1242	,'Quentin'	,'Riccione'	,'4409 Michigan Hill'	,'Lynchburg'	,'VA'	,24515	,1263576992	,'M'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1244	,'Aidan'	,'Risebrow'	,'19855 Dayton Road'	,'Memphis'	,'TN'	,38143	,8548714957	,'F'	,'N'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1249	,'Bambie'	,'Rousby'	,'5569 Maryland Drive'	,'Fort Pierce'	,'FL'	,34981	,1619023747	,'F'	,'N'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1250	,'Ezri'	,'Rowell'	,'7221 Fuller Street'	,'Corona'	,'CA'	,92883	,4649252422	,'M'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1252	,'Ansel'	,'Saice'	,'3 Little Fleur Drive'	,'Albany'	,'NY'	,12227	,4162015115	,'M'	,'Y'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1255	,'Chancey'	,'Sarginson'	,'0 Maywood Way'	,'Detroit'	,'MI'	,48206	,3038922492	,'M'	,'Y'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1258	,'Gill'	,'Schiementz'	,'8 Everett Parkway'	,'Houston'	,'TX'	,77095	,8077437915	,'M'	,'N'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1259	,'Thedric'	,'Scobie'	,'7 Farwell Hill'	,'Gainesville'	,'FL'	,32627	,1689332420	,'M'	,'Y'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1261	,'Karlen'	,'Scragg'	,'83145 Lukken Hill'	,'Miami'	,'FL'	,33180	,6829521207	,'F'	,'Y'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1265	,'Latisha'	,'Seifert'	,'8 Hansons Center'	,'Newark'	,'NJ'	,07195	,4822579305	,'F'	,'Y'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1268	,'Niall'	,'Shedden'	,'037 Loeprich Court'	,'Atlanta'	,'GA'	,31165	,2153883165	,'M'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1271	,'Valeda'	,'Shrawley'	,'010 Sachtjen Junction'	,'WA'	,'DC'	,20029	,6897384984	,'F'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1276	,'Lilli'	,'Speares'	,'90478 Graedel Park'	,'Oakland'	,'CA'	,94627	,9563675983	,'F'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1279	,'Marion'	,'Staries'	,'583 Saint Paul Parkway'	,'El Paso'	,'TX'	,79989	,4717766550	,'F'	,'N'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1284	,'Kala'	,'Stutely'	,'169 Steensland Trail'	,'Newport News'	,'VA'	,23605	,3639457016	,'F'	,'N'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1288	,'Leland'	,'Swales'	,'75 Forest Dale Drive'	,'Lubbock'	,'TX'	,79405	,5316879603	,'M'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1292	,'Kathleen'	,'Teague'	,'3 Michigan Road'	,'Honolulu'	,'HI'	,96820	,7692839036	,'F'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1296	,'Alfred'	,'Tonnesen'	,'07 8th Crossing'	,'Greensboro'	,'NC'	,27499	,6422873073	,'M'	,'N'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1297	,'Ronica'	,'Travis'	,'997 Cordelia Crossing'	,'Cincinnati'	,'OH'	,45218	,8294234812	,'F'	,'N'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1298	,'Tani'	,'Treslove'	,'22 Luster Avenue'	,'Rochester'	,'NY'	,14619	,1944395006	,'F'	,'N'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1299	,'Magnum'	,'Trumpeter'	,'8559 Moland Lane'	,'Corpus Christi'	,'TX'	,78465	,2709111438	,'M'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1300	,'Rahal'	,'Tunesi'	,'2577 Lakewood Pass'	,'Biloxi'	,'MS'	,39534	,9723491397	,'F'	,'N'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1303	,'Donnie'	,'Vesco'	,'988 Florence Lane'	,'El Paso'	,'TX'	,88530	,8848143694	,'M'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1304	,'Lorenza'	,'Vignal'	,'3657 Lerdahl Street'	,'Chicago'	,'IL'	,60630	,9412848827	,'F'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1306	,'Karrah'	,'Walework'	,'99 Monterey Street'	,'Huntington Beach'	,'CA'	,92648	,9177953039	,'F'	,'Y'	,'B'	,'I');
+INSERT INTO CLIENT VALUES	(1311	,'Roanna'	,'White'	,'570 Farwell Park'	,'Boston'	,'MA'	,02298	,1361521504	,'F'	,'N'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1314	,'Troy'	,'Winkless'	,'8 Stuart Junction'	,'Mesa'	,'AZ'	,85210	,2973683201	,'M'	,'N'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1317	,'Micky'	,'Yeudall'	,'943 West Avenue'	,'Punta Gorda'	,'FL'	,33982	,4789432624	,'M'	,'Y'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1319	,'Slade'	,'Yurenin'	,'940 Sachs Court'	,'Huntsville'	,'AL'	,35895	,5695879795	,'M'	,'Y'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1000	,'Jere'	,'Abelson'	,'5803 Monument Plaza'	,'Charleston'	,'WV'	,25336	,8259519260	,'M'	,'N'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1003	,'Lilli'	,'Albion'	,'55 Rockefeller Way'	,'Fort Lauderdale'	,'FL'	,33345	,3191547516	,'F'	,'N'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1005	,'Putnem'	,'Allatt'	,'21279 Debs Court'	,'Herndon'	,'VA'	,22070	,1819821730	,'M'	,'Y'	,'N'	,'W');
+INSERT INTO CLIENT VALUES	(1008	,'Rufe'	,'Aronson'	,'8 Menomonie Circle'	,'Pittsburgh'	,'PA'	,15240	,9133840818	,'M'	,'Y'	,'N'	,'W');
+INSERT INTO CLIENT VALUES	(1014	,'Hertha'	,'Ayer'	,'53364 Hovde Junction'	,'Clearwater'	,'FL'	,33758	,7796057621	,'F'	,'Y'	,'N'	,'W');
+INSERT INTO CLIENT VALUES	(1031	,'Janeczka'	,'Boij'	,'463 Truax Drive'	,'Memphis'	,'TN'	,38150	,8392935443	,'F'	,'N'	,'N'	,'VI');
+INSERT INTO CLIENT VALUES	(1034	,'Burke'	,'Bramwich'	,'34657 Roth Hill'	,'Birmingham'	,'AL'	,35295	,2159893056	,'M'	,'Y'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1036	,'Armand'	,'Brant'	,'5469 Moulton Drive'	,'Columbus'	,'GA'	,31998	,5193981926	,'M'	,'Y'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1041	,'Cammy'	,'Brownsall'	,'3 Talisman Hill'	,'Santa Monica'	,'CA'	,90410	,6788486230	,'F'	,'Y'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1048	,'Orlan'	,'Caen'	,'9168 Erie Parkway'	,'Gastonia'	,'NC'	,28055	,8682487141	,'M'	,'N'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1050	,'Findlay'	,'Carvil'	,'85 Forest Dale Terrace'	,'Fargo'	,'ND'	,58106	,5319126069	,'M'	,'N'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1053	,'Kale'	,'Cawcutt'	,'29 1st Place'	,'WA'	,'DC'	,20260	,9057524641	,'M'	,'Y'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1057	,'Stanleigh'	,'Cheves'	,'82 Northland Point'	,'Chicago'	,'IL'	,60652	,8676563937	,'M'	,'N'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1058	,'Phillida'	,'Cicco'	,'1876 Del Mar Way'	,'Fort Worth'	,'TX'	,76115	,1687198057	,'F'	,'Y'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1059	,'Jeniece'	,'Cinnamond'	,'92 Blue Bill Park Way'	,'WA'	,'DC'	,20508	,6438696682	,'F'	,'N'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1070	,'Hollis'	,'Cotsford'	,'5 Kropf Crossing'	,'Lawrenceville'	,'GA'	,30245	,1189044305	,'M'	,'Y'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1080	,'Sonia'	,'Deinhardt'	,'0 CO Trail'	,'Newport News'	,'VA'	,23605	,1779826597	,'F'	,'N'	,'N'	,'VI');
+INSERT INTO CLIENT VALUES	(1085	,'Minerva'	,'Domesday'	,'787 Sunnyside Circle'	,'WA'	,'DC'	,20099	,6097869509	,'F'	,'N'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1086	,'Isabel'	,'Dossetter'	,'43 Fairview Hill'	,'Detroit'	,'MI'	,48206	,8045277383	,'F'	,'N'	,'N'	,'VI');
+INSERT INTO CLIENT VALUES	(1091	,'Marilin'	,'Durn'	,'776 Huxley Parkway'	,'Pensacola'	,'FL'	,32520	,6707647758	,'F'	,'Y'	,'N'	,'VI');
+INSERT INTO CLIENT VALUES	(1092	,'Clare'	,'Dursley'	,'0982 Farwell Crossing'	,'Manchester'	,'NH'	,03105	,9049067044	,'M'	,'N'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1100	,'Pat'	,'Farans'	,'3131 American Drive'	,'Sacramento'	,'CA'	,95828	,5902898975	,'F'	,'N'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1104	,'Susi'	,'Floyed'	,'25 Namekagon Trail'	,'Dallas'	,'TX'	,75265	,2338448609	,'F'	,'Y'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1117	,'Ludwig'	,'Gibbard'	,'64 Eagle Crest Hill'	,'Atlanta'	,'GA'	,30336	,2892354294	,'M'	,'Y'	,'N'	,'VI');
+INSERT INTO CLIENT VALUES	(1120	,'Timothea'	,'Gimlet'	,'11363 Packers Road'	,'Savannah'	,'GA'	,31422	,3173624922	,'F'	,'N'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1125	,'Olva'	,'Gosden'	,'3480 Dorton Junction'	,'Saint Louis'	,'MO'	,63136	,7587612139	,'F'	,'N'	,'N'	,'VI');
+INSERT INTO CLIENT VALUES	(1127	,'Alexis'	,'Grigorkin'	,'150 Merchant Way'	,'Norfolk'	,'VA'	,23520	,1977838567	,'M'	,'N'	,'N'	,'VI');
+INSERT INTO CLIENT VALUES	(1129	,'Madelon'	,'Growcock'	,'83343 Sunfield Avenue'	,'Fresno'	,'CA'	,93740	,7035265378	,'F'	,'N'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1134	,'Bo'	,'Harse'	,'6421 Vahlen Circle'	,'Tucson'	,'AZ'	,85748	,3197933805	,'M'	,'N'	,'N'	,'W');
+INSERT INTO CLIENT VALUES	(1143	,'Ben'	,'Hildred'	,'2 Fremont Court'	,'White Plains'	,'NY'	,10633	,7092559487	,'M'	,'Y'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1144	,'Persis'	,'Horry'	,'7857 Gale Road'	,'Baltimore'	,'MD'	,21239	,9746246897	,'F'	,'N'	,'N'	,'W');
+INSERT INTO CLIENT VALUES	(1156	,'Averyl'	,'Keepe'	,'895 Forster Park'	,'Falls Church'	,'VA'	,22047	,4845787709	,'F'	,'N'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1161	,'Ephraim'	,'Kiddey'	,'19025 Kipling Lane'	,'Denver'	,'CO'	,80299	,9689261168	,'M'	,'N'	,'N'	,'VI');
+INSERT INTO CLIENT VALUES	(1163	,'Merola'	,'Kitto'	,'775 Mayfield Terrace'	,'Toledo'	,'OH'	,43635	,7641532774	,'F'	,'N'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1166	,'Petronella'	,'Kliemke'	,'27990 Truax Hill'	,'Independence'	,'MO'	,64054	,3228235689	,'F'	,'N'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1167	,'Alva'	,'Kob'	,'51218 Ohio Place'	,'Houston'	,'TX'	,77266	,4356171740	,'M'	,'Y'	,'N'	,'W');
+INSERT INTO CLIENT VALUES	(1171	,'Roland'	,'Langsdon'	,'3825 Kim Plaza'	,'Kansas City'	,'KS'	,66112	,2408147368	,'M'	,'N'	,'N'	,'VI');
+INSERT INTO CLIENT VALUES	(1177	,'West'	,'Lester'	,'67 Brentwood Street'	,'Colorado Springs'	,'CO'	,80920	,7374484402	,'M'	,'Y'	,'N'	,'VI');
+INSERT INTO CLIENT VALUES	(1180	,'Desmond'	,'Linforth'	,'627 Fremont Court'	,'Columbus'	,'OH'	,43210	,4718985937	,'M'	,'Y'	,'N'	,'W');
+INSERT INTO CLIENT VALUES	(1184	,'Perice'	,'Lukianov'	,'952 Del Sol Avenue'	,'Terre Haute'	,'IN'	,47805	,2008589194	,'M'	,'Y'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1191	,'Thomasin'	,'Mangion'	,'7 Fordem Plaza'	,'Phoenix'	,'AZ'	,85053	,2208233228	,'F'	,'Y'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1196	,'Maje'	,'McAster'	,'5 Sherman Parkway'	,'Minneapolis'	,'MN'	,55428	,4125608175	,'F'	,'Y'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1206	,'Sheppard'	,'Najara'	,'57 Lighthouse Bay Parkway'	,'Fort Lauderdale'	,'FL'	,33310	,1399362169	,'M'	,'N'	,'N'	,'W');
+INSERT INTO CLIENT VALUES	(1213	,'Gayelord'	,'Osmund'	,'01 Nancy Junction'	,'Wichita'	,'KS'	,67205	,8954436492	,'M'	,'Y'	,'N'	,'VI');
+INSERT INTO CLIENT VALUES	(1234	,'Antoine'	,'Prandin'	,'41811 Trailsway Center'	,'Melbourne'	,'FL'	,32919	,1308492398	,'M'	,'N'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1251	,'Giffard'	,'Rutherfoord'	,'253 Grasskamp Street'	,'NY City'	,'NY'	,10019	,2397292238	,'M'	,'Y'	,'N'	,'W');
+INSERT INTO CLIENT VALUES	(1256	,'Opaline'	,'Scamal'	,'9332 Waubesa Junction'	,'Saint Louis'	,'MO'	,63169	,6489232735	,'F'	,'N'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1266	,'Nye'	,'Sharram'	,'1W Stephen Place'	,'Norman'	,'OK'	,73071	,9326254473	,'M'	,'Y'	,'N'	,'W');
+INSERT INTO CLIENT VALUES	(1269	,'Lanita'	,'Sheward'	,'0493 Lakewood Gardens Point'	,'Charleston'	,'WV'	,25362	,9747662335	,'F'	,'Y'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1272	,'Emmerich'	,'Sibbit'	,'0146 Kedzie Lane'	,'Aiken'	,'SC'	,29805	,4532949503	,'M'	,'Y'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1280	,'Conant'	,'Stentiford'	,'071 Myrtle Pass'	,'Minneapolis'	,'MN'	,55448	,7593034494	,'M'	,'Y'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1283	,'Storm'	,'Studdert'	,'02904 Kim Court'	,'Vancouver'	,'WA'	,98664	,4751132967	,'F'	,'Y'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1285	,'Agna'	,'Suddaby'	,'16748 Fair Oaks Way'	,'Lexington'	,'KY'	,40586	,6799355068	,'F'	,'N'	,'N'	,'W');
+INSERT INTO CLIENT VALUES	(1289	,'Fernande'	,'Swiffin'	,'52394 Cottonwood Pass'	,'Albany'	,'NY'	,12237	,7315285635	,'F'	,'N'	,'N'	,'I');
+INSERT INTO CLIENT VALUES	(1291	,'Zorana'	,'Tabbernor'	,'9 Thackeray Drive'	,'Grand Rapids'	,'MI'	,49544	,9632875570	,'F'	,'N'	,'N'	,'VI');
+INSERT INTO CLIENT VALUES	(1293	,'Maribelle'	,'Thomerson'	,'77263 Delladonna Circle'	,'Sacramento'	,'CA'	,94257	,1528067820	,'F'	,'N'	,'N'	,'V');
+INSERT INTO CLIENT VALUES	(1308	,'Prudy'	,'Westfalen'	,'6 Morning Park'	,'Garland'	,'TX'	,75049	,5732998270	,'F'	,'N'	,'N'	,'W');
+INSERT INTO CLIENT VALUES	(1001	,'Bernard'	,'Aindrais'	,'1 Kenwood Hill'	,'Chicago'	,'IL'	,60619	,9128992988	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1002	,'Bevon'	,'Alasdair'	,'5508 Northview Lane'	,'Houston'	,'TX'	,77090	,8852075857	,'M'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1004	,'Fredi'	,'Albrooke'	,'87 Northridge Avenue'	,'Fort Myers'	,'FL'	,33994	,2401978716	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1006	,'Harlene'	,'Amori'	,'959 Mccormick Hill'	,'Aurora'	,'CO'	,80015	,6402697194	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1007	,'Irwinn'	,'Angeau'	,'263 Jay Road'	,'Jeffersonville'	,'IN'	,47134	,5898696605	,'M'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1010	,'Odella'	,'Asipenko'	,'52 American Hill'	,'Detroit'	,'MI'	,48258	,3726131769	,'F'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1011	,'Inglis'	,'Atthow'	,'5787 Mayfield Alley'	,'Bronx'	,'NY'	,10464	,1058403367	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1012	,'Corine'	,'Audibert'	,'392 Spohn Trail'	,'Knoxville'	,'TN'	,37995	,6004903152	,'F'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1016	,'Rem'	,'Bapty'	,'874 Anhalt Avenue'	,'Fresno'	,'CA'	,93778	,8685793853	,'M'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1019	,'Laural'	,'Barette'	,'05 Golf View Plaza'	,'Peoria'	,'IL'	,61635	,3442801887	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1020	,'Lyman'	,'Bedboro'	,'88 Lakewood Hill'	,'Oklahoma City'	,'OK'	,73114	,9252752671	,'M'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1022	,'Thaine'	,'Benazet'	,'2397 Bonner Way'	,'Dallas'	,'TX'	,75246	,8906467972	,'M'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1023	,'Stefan'	,'Bentke'	,'049 Talisman Hill'	,'Portland'	,'OR'	,97206	,1944876744	,'M'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1024	,'Maribelle'	,'Benz'	,'84 Nancy Street'	,'Trenton'	,'NJ'	,08650	,1729991847	,'F'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1026	,'Arther'	,'Bettam'	,'50539 Hazelcrest Plaza'	,'Shreveport'	,'LA'	,71166	,8647665326	,'M'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1027	,'Consuelo'	,'Bier'	,'45 Coleman Hill'	,'Memphis'	,'TN'	,38114	,7538503402	,'F'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1028	,'Rosaline'	,'Blakeman'	,'60 Dorton Pass'	,'Orlando'	,'FL'	,32803	,7906848521	,'F'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1032	,'Ashton'	,'Bradnam'	,'8032 Express Place'	,'Milwaukee'	,'WI'	,53215	,1474086551	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1033	,'Reg'	,'Brakespear'	,'792 Bayside Place'	,'Alexandria'	,'VA'	,22313	,2296535648	,'M'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1035	,'Samaria'	,'Brann'	,'37128 Reindahl Lane'	,'Fresno'	,'CA'	,93721	,6973280383	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1038	,'Claus'	,'Bresman'	,'6423 Lakeland Avenue'	,'WA'	,'DC'	,20425	,1993122165	,'M'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1039	,'Skye'	,'Brewitt'	,'250 Havey Avenue'	,'Tucson'	,'AZ'	,85754	,6533783075	,'M'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1042	,'Al'	,'Brundell'	,'70171 Sauthoff Pass'	,'Stockton'	,'CA'	,95219	,9287174496	,'M'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1043	,'Tamera'	,'Bullen'	,'63 Onsgard Alley'	,'WA'	,'DC'	,20591	,4554520813	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1052	,'Renie'	,'Causbey'	,'9 Lotheville Trail'	,'Tallahassee'	,'FL'	,32309	,1741294953	,'F'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1060	,'Axe'	,'Circuit'	,'1708 Twin Pines Avenue'	,'Portland'	,'OR'	,97296	,6843524617	,'M'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1061	,'Friedrick'	,'Cleaves'	,'8384 Magdeline Plaza'	,'Palo Alto'	,'CA'	,94302	,2519041966	,'M'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1063	,'Paolo'	,'Cogdon'	,'8 Buena Vista Terrace'	,'Raleigh'	,'NC'	,27635	,4427838853	,'M'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1064	,'Katheryn'	,'Comfort'	,'101 Victoria Point'	,'Santa Fe'	,'NM'	,87505	,8755083048	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1065	,'Sheree'	,'Cooper'	,'28751 Thierer Point'	,'NY City'	,'NY'	,10260	,2093015469	,'F'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1066	,'Eugenie'	,'Copnell'	,'6 Waywood Place'	,'Arlington'	,'TX'	,76004	,4596604061	,'F'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1067	,'Arluene'	,'Corrao'	,'7562 Prairieview Avenue'	,'Bakersfield'	,'CA'	,93381	,8304545824	,'F'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1068	,'Terra'	,'Corre'	,'436 Scott Park'	,'Fort Wayne'	,'IN'	,46825	,6932214711	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1071	,'Rodolphe'	,'Coulson'	,'420 Hintze Circle'	,'Oakland'	,'CA'	,94627	,3216266396	,'M'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1074	,'Edward'	,'Dalley'	,'3 Gateway Drive'	,'Spartanburg'	,'SC'	,29319	,5854381816	,'M'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1075	,'Georgie'	,'Dalrymple'	,'2221 Reinke Alley'	,'Dulles'	,'VA'	,20189	,1831493793	,'F'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1078	,'Nona'	,'de la Tremoille'	,'187 American Pass'	,'Wichita'	,'KS'	,67220	,5542693078	,'F'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1079	,'Elissa'	,'Dehn'	,'3 Quincy Road'	,'Dallas'	,'TX'	,75260	,6523886248	,'F'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1082	,'Giffie'	,'Di Baudi'	,'325 Coleman Parkway'	,'Asheville'	,'NC'	,28815	,5525022514	,'M'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1084	,'Lucio'	,'Dmych'	,'686 Granby Point'	,'Gainesville'	,'FL'	,32605	,2766991776	,'M'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1088	,'Yorgo'	,'Dudenie'	,'6 Morningstar Lane'	,'Rochester'	,'NY'	,14639	,8014810015	,'M'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1089	,'Trstram'	,'Dufore'	,'992 Jenifer Point'	,'Pompano Beach'	,'FL'	,33075	,9406450534	,'M'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1090	,'Andras'	,'Dunton'	,'74433 Waxwing Hill'	,'Cumming'	,'GA'	,30130	,5596277675	,'M'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1094	,'Constanta'	,'Eldrett'	,'421 Fairview Crossing'	,'Fort Wayne'	,'IN'	,46862	,5118957959	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1095	,'Brigg'	,'Elsmore'	,'09 Pine View Junction'	,'Boston'	,'MA'	,02283	,9643750976	,'M'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1097	,'Sallee'	,'Evison'	,'418 Merrick Circle'	,'Wilkes Barre'	,'PA'	,18706	,3521276608	,'F'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1098	,'Trevar'	,'Ewer'	,'89160 Raven Drive'	,'Grand Junction'	,'CO'	,81505	,2659822159	,'M'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1099	,'Calla'	,'Ewestace'	,'394 Victoria Place'	,'Huntington'	,'WV'	,25711	,8686510557	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1101	,'Lewiss'	,'Figure'	,'43502 Texas Pass'	,'Louisville'	,'KY'	,40280	,9701968734	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1102	,'Hermia'	,'Flancinbaum'	,'693 Goodland Street'	,'Anchorage'	,'AK'	,99512	,3295370852	,'F'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1105	,'Tito'	,'Forsard'	,'5883 Buena Vista Alley'	,'Orlando'	,'FL'	,32813	,5517702763	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1106	,'Amargo'	,'Fortnam'	,'9424 East Center'	,'Melbourne'	,'FL'	,32941	,8443928554	,'F'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1108	,'Gussy'	,'Foulgham'	,'173 8th Lane'	,'Stockton'	,'CA'	,95219	,9263699054	,'F'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1109	,'Zollie'	,'Fradgley'	,'64 Menomonie Lane'	,'San Antonio'	,'TX'	,78215	,6026494131	,'M'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1110	,'Elisha'	,'Franzoli'	,'263 Nevada Lane'	,'Pasadena'	,'CA'	,91125	,7159237779	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1112	,'Babbie'	,'Galle'	,'0801 Bowman Junction'	,'Roanoke'	,'VA'	,24004	,7837234567	,'F'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1113	,'Aluino'	,'Gerling'	,'26440 3rd Street'	,'Madison'	,'WI'	,53779	,3175639371	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1114	,'Gilberta'	,'Ghelardoni'	,'646 Waubesa Way'	,'Rochester'	,'NY'	,14604	,4403654771	,'F'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1115	,'Braden'	,'Ghion'	,'733 Ridgeview Parkway'	,'Saint Louis'	,'MO'	,63136	,2158626207	,'M'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1116	,'Eugenius'	,'Giacomi'	,'1897 Melby Drive'	,'Oklahoma City'	,'OK'	,73152	,2547620121	,'M'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1118	,'Tremayne'	,'Gillies'	,'436 Johnson Trail'	,'New Orleans'	,'LA'	,70149	,1731636582	,'M'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1119	,'Margy'	,'Gillies'	,'68851 Nevada Circle'	,'Inglewood'	,'CA'	,90305	,1591825457	,'F'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1121	,'Ilka'	,'Glassard'	,'96 Londonderry Lane'	,'WA'	,'DC'	,20337	,3394641638	,'F'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1124	,'Giorgi'	,'Gosart'	,'13 Victoria Plaza'	,'Tacoma'	,'WA'	,98405	,7804006145	,'M'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1126	,'Chen'	,'Gowrich'	,'69 Dawn Center'	,'Port Wanshington'	,'NY'	,11054	,2224622069	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1130	,'Jobyna'	,'Hamley'	,'3 Shelley Place'	,'Ogden'	,'UT'	,84403	,2539769977	,'F'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1131	,'Adore'	,'Hamner'	,'96 Emmet Junction'	,'Alexandria'	,'VA'	,22309	,3926692738	,'F'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1132	,'Gustavo'	,'Hansmann'	,'325 Dapin Point'	,'Hyattsville'	,'MD'	,20784	,5743962588	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1133	,'Terrel'	,'Harkess'	,'795 Comanche Crossing'	,'Nashville'	,'TN'	,37220	,5827592171	,'M'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1135	,'Linet'	,'Hasell'	,'2 Bunting Pass'	,'Lexington'	,'KY'	,40596	,8784888837	,'F'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1136	,'Silvie'	,'Hatz'	,'85 Tennesse Place'	,'Fort Collins'	,'CO'	,80525	,2046328786	,'F'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1137	,'Maxi'	,'Hawk'	,'7916 Prentice Terrace'	,'Newark'	,'DE'	,19714	,4326973513	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1138	,'Dorine'	,'Hearnes'	,'904 Schurz Alley'	,'Orlando'	,'FL'	,32885	,4361709900	,'F'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1141	,'Jelene'	,'Herrieven'	,'4334 Spohn Place'	,'Miami'	,'FL'	,33142	,6293103159	,'F'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1142	,'Margarita'	,'Higgen'	,'26108 Esker Drive'	,'Norcross'	,'GA'	,30092	,9027186796	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1145	,'Roley'	,'Houseman'	,'651 West Terrace'	,'Waterbury'	,'CT'	,06726	,6512714197	,'M'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1148	,'Kassey'	,'Iacavone'	,'05 Rieder Parkway'	,'Trenton'	,'NJ'	,08695	,7049541286	,'F'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1151	,'Arthur'	,'Jales'	,'460 Forster Parkway'	,'WA'	,'DC'	,20436	,2176184922	,'M'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1152	,'Elicia'	,'Jepps'	,'92555 Scoville Street'	,'Louisville'	,'KY'	,40205	,1563105731	,'F'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1155	,'My'	,'Keddie'	,'142 North Lane'	,'Vero Beach'	,'FL'	,32964	,6443917041	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1157	,'Idalina'	,'Kellard'	,'54967 Lake View Alley'	,'Cincinnati'	,'OH'	,45228	,1418196571	,'F'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1158	,'Madelena'	,'Kelston'	,'626 Merchant Plaza'	,'Greeley'	,'CO'	,80638	,6972004586	,'F'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1159	,'Vito'	,'Kenningham'	,'9072 Fuller Lane'	,'Chicago'	,'IL'	,60691	,1841247781	,'M'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1165	,'Evaleen'	,'Klejin'	,'40 Bay Alley'	,'Milwaukee'	,'WI'	,53215	,2252380913	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1168	,'Bertrando'	,'Koubek'	,'8768 Northwestern Parkway'	,'Columbia'	,'MO'	,65211	,7601584793	,'M'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1169	,'Caddric'	,'Lamberti'	,'77 Stone Corner Circle'	,'Iowa City'	,'IA'	,52245	,9365596053	,'M'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1170	,'Colver'	,'Landsman'	,'179 Jenna Center'	,'Des Moines'	,'IA'	,50305	,8799709932	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1173	,'Brett'	,'Late'	,'76 Vidon Street'	,'Lakeland'	,'FL'	,33805	,6292235015	,'M'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1174	,'Liza'	,'Lathee'	,'914 Hoepker Way'	,'NY City'	,'NY'	,10034	,6896365067	,'F'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1178	,'Odell'	,'Lever'	,'95617 Hauk Place'	,'El Paso'	,'TX'	,79999	,2398294257	,'M'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1179	,'Clerkclaude'	,'Lindenstrauss'	,'17 Hudson Road'	,'Beaumont'	,'TX'	,77713	,2359221363	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1181	,'Maximilian'	,'Linnard'	,'4886 Mendota Court'	,'Miami'	,'FL'	,33158	,2017853603	,'M'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1185	,'Bibbie'	,'MacDougal'	,'3733 Scoville Trail'	,'Jamaica'	,'NY'	,11431	,9829745236	,'F'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1186	,'Jodee'	,'MacElharge'	,'1 Loomis Park'	,'Honolulu'	,'HI'	,96805	,2999817493	,'F'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1187	,'Bride'	,'MacGowing'	,'5 Golden Leaf Trail'	,'Denver'	,'CO'	,80279	,8024571031	,'F'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1189	,'Magdaia'	,'MacSwayde'	,'4857 Hollow Ridge Terrace'	,'Jacksonville'	,'FL'	,32255	,9245230483	,'F'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1194	,'Amy'	,'Mattek'	,'80448 Grover Alley'	,'Denver'	,'CO'	,80235	,3165491956	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1197	,'Julie'	,'McGuane'	,'060 Novick Park'	,'Akron'	,'OH'	,44305	,3258345101	,'F'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1198	,'Oliver'	,'McOwen'	,'3572 Division Way'	,'Tempe'	,'AZ'	,85284	,2244008513	,'M'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1202	,'Godiva'	,'Mouget'	,'387 Cordelia Park'	,'Spokane'	,'WA'	,99205	,4597071723	,'F'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1203	,'Remington'	,'Mourton'	,'4 Crowley Avenue'	,'Missoula'	,'MT'	,59806	,3067796942	,'M'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1205	,'Marley'	,'Muzzullo'	,'1 Longview Junction'	,'Tuscaloosa'	,'AL'	,35487	,1737246523	,'F'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1207	,'Susana'	,'Neachell'	,'27065 Almo Trail'	,'Virginia Beach'	,'VA'	,23454	,9849029054	,'F'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1208	,'Jerald'	,'Nevins'	,'38 Mitchell Crossing'	,'Denver'	,'CO'	,80291	,8208778200	,'M'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1209	,'Schuyler'	,'Ninnotti'	,'15868 Bluejay Drive'	,'Wichita'	,'KS'	,67210	,9086793162	,'M'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1211	,'Ax'	,'Olenichev'	,'6 Anniversary Terrace'	,'White Plains'	,'NY'	,10633	,9897408447	,'M'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1212	,'Garrott'	,'O-Rafferty'	,'5879 Kim Court'	,'San Jose'	,'CA'	,95113	,7001223849	,'M'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1214	,'Clarey'	,'Oxx'	,'7 Nelson Junction'	,'Miami'	,'FL'	,33153	,7135331091	,'F'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1215	,'Merrel'	,'Paler'	,'78 Bultman Lane'	,'Shawnee Mission'	,'KS'	,66210	,6872773744	,'M'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1216	,'Dirk'	,'Passman'	,'84 Fulton Park'	,'Spartanburg'	,'SC'	,29305	,3853801323	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1217	,'Roger'	,'Paulson'	,'15548 Oxford Junction'	,'Baton Rouge'	,'LA'	,70883	,7249233777	,'M'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1219	,'Kass'	,'Pedwell'	,'48 Crescent Oaks Alley'	,'WA'	,'DC'	,20067	,4049515889	,'F'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1220	,'Linn'	,'Peetermann'	,'34185 Onsgard Point'	,'Detroit'	,'MI'	,48267	,2937334905	,'F'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1222	,'Mora'	,'Pepon'	,'17 Acker Circle'	,'Philadelphia'	,'PA'	,19191	,2866451964	,'F'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1225	,'Tobit'	,'Philips'	,'784 Texas Park'	,'Colorado Springs'	,'CO'	,80905	,7618922362	,'M'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1226	,'Malchy'	,'Physick'	,'70 Milwaukee Junction'	,'Reston'	,'VA'	,20195	,1915015459	,'M'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1227	,'Izak'	,'Pigott'	,'9467 Marquette Hill'	,'Gastonia'	,'NC'	,28055	,7929771765	,'M'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1229	,'Taber'	,'Pitceathly'	,'63315 Eliot Drive'	,'Macon'	,'GA'	,31210	,3894599748	,'M'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1230	,'Brooks'	,'Pittaway'	,'6 Erie Road'	,'Tallahassee'	,'FL'	,32304	,3109409772	,'F'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1231	,'Duke'	,'Pleager'	,'5 Commercial Drive'	,'West Palm Beach'	,'FL'	,33421	,9683315691	,'M'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1232	,'Mahalia'	,'Poles'	,'6771 Cardinal Trail'	,'Anderson'	,'IN'	,46015	,7195621368	,'F'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1236	,'Patrica'	,'Pucknell'	,'29 Anthes Pass'	,'Shawnee Mission'	,'KS'	,66215	,4392469912	,'F'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1237	,'Cathryn'	,'Purvey'	,'9 Hovde Point'	,'Winston Salem'	,'NC'	,27116	,2351812800	,'F'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1238	,'Franny'	,'Rasmus'	,'4632 4th Hill'	,'San Francisco'	,'CA'	,94159	,5305292946	,'M'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1240	,'Mei'	,'Redfearn'	,'4 Jay Point'	,'Monticello'	,'MN'	,55590	,5928630984	,'F'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1241	,'Estele'	,'Rexworthy'	,'5186 Schlimgen Pass'	,'Chicago'	,'IL'	,60657	,7709514735	,'F'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1243	,'Rafaellle'	,'Riddell'	,'342 Talisman Terrace'	,'Philadelphia'	,'PA'	,19178	,6997330114	,'M'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1245	,'Aymer'	,'Risson'	,'22621 Cottonwood Plaza'	,'Garden Grove'	,'CA'	,92645	,7543422741	,'M'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1246	,'Reider'	,'Rochell'	,'40 Pine View Junction'	,'Sacramento'	,'CA'	,95852	,3866762082	,'M'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1247	,'Jdavie'	,'Roddan'	,'6 Sunnyside Way'	,'Aiken'	,'SC'	,29805	,4903998965	,'F'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1248	,'Lalo'	,'Ross'	,'48256 Westend Way'	,'Moreno Valley'	,'CA'	,92555	,8112572317	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1253	,'Yetty'	,'Saltmarshe'	,'99654 Cardinal Hill'	,'Metairie'	,'LA'	,70033	,5385353850	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1254	,'Shermie'	,'Sambeck'	,'1 Bunker Hill Way'	,'Petaluma'	,'CA'	,94975	,5221950129	,'M'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1257	,'Mildrid'	,'Schechter'	,'81 Petterle Circle'	,'Decatur'	,'GA'	,30089	,7601786016	,'F'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1260	,'Abba'	,'Scotchmoor'	,'56976 Heath Center'	,'Anchorage'	,'AL'	,99512	,5277239581	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1262	,'Philis'	,'Seago'	,'19 Jay Park'	,'Denver'	,'CO'	,80204	,5298665785	,'F'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1263	,'Farra'	,'Sear'	,'58346 Bultman Drive'	,'Memphis'	,'TN'	,38126	,3877060814	,'F'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1264	,'Leena'	,'Seear'	,'8249 Pawling Junction'	,'Columbia'	,'SC'	,29220	,7815421292	,'F'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1267	,'Peri'	,'Sheach'	,'3708 Green Ridge Court'	,'Reno'	,'NV'	,89505	,9186478467	,'F'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1270	,'Jarred'	,'Shoemark'	,'8 Dapin Park'	,'Fort Pierce'	,'FL'	,34949	,3482441197	,'M'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1273	,'Iorgos'	,'Sinnock'	,'88866 Prairieview Parkway'	,'Richmond'	,'VA'	,23225	,5402171117	,'M'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1274	,'Phedra'	,'Skiplorne'	,'81 Lake View Center'	,'Jeffersonville'	,'IN'	,47134	,8685910222	,'F'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1275	,'Grace'	,'Sommerled'	,'005 Menomonie Street'	,'Jacksonville'	,'FL'	,32215	,8485334460	,'M'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1277	,'Twila'	,'Spowart'	,'98595 Bunker Hill Crossing'	,'Cambridge'	,'MA'	,02142	,5762555114	,'F'	,'N'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1278	,'Early'	,'Spradbery'	,'V Forster Plaza'	,'Charlotte'	,'NC'	,28242	,8415369238	,'M'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1281	,'Joly'	,'Stevings'	,'18 Dahle Alley'	,'Greensboro'	,'NC'	,27409	,9595946482	,'F'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1282	,'Igor'	,'Strutley'	,'029 Springview Point'	,'Saint Petersburg'	,'FL'	,33715	,8355451850	,'M'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1286	,'Silvain'	,'Sudworth'	,'63762 Miller Parkway'	,'Memphis'	,'TN'	,38143	,8184645771	,'M'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1287	,'Vick'	,'Suggey'	,'45 Oakridge Lane'	,'Houston'	,'TX'	,77234	,8764458091	,'M'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1290	,'Mischa'	,'Sydall'	,'66 Parkside Pass'	,'Atlanta'	,'GA'	,30340	,8313414944	,'M'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1294	,'Eileen'	,'Thorius'	,'8561 5th Park'	,'Midland'	,'TX'	,79705	,1694004296	,'F'	,'Y'	,'R'	,'W');
+INSERT INTO CLIENT VALUES	(1295	,'Stafford'	,'Toman'	,'1970 Glendale Hill'	,'Cleveland'	,'OH'	,44111	,2214774466	,'M'	,'Y'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1301	,'Marybeth'	,'Van Der Weedenburg'	,'2143 Comanche Road'	,'Youngstown'	,'OH'	,44555	,4765449853	,'F'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1302	,'Sayres'	,'Vane'	,'2565 Morrow Court'	,'Olympia'	,'WA'	,98506	,1369509639	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1305	,'Antonina'	,'Viste'	,'744 Brown Trail'	,'Detroit'	,'MI'	,48295	,1027017480	,'F'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1307	,'Herbie'	,'Welford'	,'6 Dovetail Point'	,'Fort Worth'	,'TX'	,76110	,7792882686	,'M'	,'N'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1309	,'Dorie'	,'Wharf'	,'22 Moland Terrace'	,'Salt Lake City'	,'UT'	,84110	,2007878852	,'M'	,'Y'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1310	,'Fleurette'	,'Wheelan'	,'026 Carey Trail'	,'Jackson'	,'MS'	,39216	,4954277774	,'F'	,'Y'	,'R'	,'I');
+INSERT INTO CLIENT VALUES	(1312	,'Gearard'	,'Whithorn'	,'8 Merchant Junction'	,'Bethesda'	,'MD'	,20892	,6634347724	,'M'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1313	,'Carmita'	,'Willis'	,'91 Morrow Lane'	,'New Bedford'	,'MA'	,02745	,3659387363	,'F'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1315	,'Alis'	,'Worboy'	,'927 Johnson Avenue'	,'Hagerstown'	,'MD'	,21747	,1504398532	,'F'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1316	,'Lamond'	,'Yekel'	,'00 Kings Avenue'	,'Albuquerque'	,'NM'	,87115	,2203702372	,'M'	,'N'	,'R'	,'V');
+INSERT INTO CLIENT VALUES	(1318	,'Merry'	,'Youens'	,'16 Lighthouse Bay Park'	,'Philadelphia'	,'PA'	,19125	,4573365297	,'M'	,'N'	,'R'	,'VI');
+INSERT INTO CLIENT VALUES	(1320	,' Alanah'	,' Hamlington'	,' 2 Loeprich Road'	,' Savannah'	,'GA'	,31405	,9123375945	,'F'	,'N'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1321	,' Ferdinande'	,' Stoter'	,' 5 Mallard Alley'	,' Lincoln'	,'NE'	,68583	,4027075871	,'M'	,'N'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1322	,' Marcellina'	,' Sarfas'	,' 240 Northridge Crossing'	,' Mobile'	,'AL'	,36628	,2518334866	,'F'	,'N'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1323	,' Thalia'	,' Sneyd'	,' 577 Center Trail'	,' Albany'	,'NY'	,12247	,5183074487	,'F'	,'N'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1324	,' Beverly'	,' Barendtsen'	,' 585 Anzinger Place'	,' Bradenton'	,'FL'	,34210	,9415888384	,'F'	,'Y'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1325	,' Annette'	,' Manlow'	,' 46 Pleasure Avenue'	,' New Haven'	,'CT'	,06533	,2034596188	,'F'	,'N'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1326	,' Winnie'	,' Saintsbury'	,' 67 Basil Terrace'	,' Columbus'	,'OH'	,43204	,6143682644	,'M'	,'Y'	,'B'	,'V');
+INSERT INTO CLIENT VALUES	(1327	,' Abram'	,' Bartalin'	,' 03 Anthes Court'	,' San Rafael'	,'CA'	,94913	,4151000446	,'M'	,'N'	,'B'	,'VI');
+INSERT INTO CLIENT VALUES	(1328	,' Lucretia'	,' Jellybrand'	,' 74 Maple Hill'	,' Rochester'	,'MN'	,55905	,5074940329	,'F'	,'N'	,'B'	,'W');
+INSERT INTO CLIENT VALUES	(1329	,' Kathe'	,' Macak'	,' 37473 Cottonwood Court'	,' New Haven'	,'CT'	,06505	,2032141723	,'F'	,'N'	,'B'	,'V');
+
+
+
+/*------------------------------POPULATE BUYER TABLE---------------------------*/
+
+INSERT INTO BUYER VALUES	(1009	,NULL);
+INSERT INTO BUYER VALUES	(1013	,NULL);
+INSERT INTO BUYER VALUES	(1015	,NULL);
+INSERT INTO BUYER VALUES	(1017	,NULL);
+INSERT INTO BUYER VALUES	(1018	,NULL);
+INSERT INTO BUYER VALUES	(1021	,NULL);
+INSERT INTO BUYER VALUES	(1025	,NULL);
+INSERT INTO BUYER VALUES	(1029	,NULL);
+INSERT INTO BUYER VALUES	(1030	,NULL);
+INSERT INTO BUYER VALUES	(1037	,NULL);
+INSERT INTO BUYER VALUES	(1040	,NULL);
+INSERT INTO BUYER VALUES	(1044	,NULL);
+INSERT INTO BUYER VALUES	(1045	,NULL);
+INSERT INTO BUYER VALUES	(1046	,NULL);
+INSERT INTO BUYER VALUES	(1047	,NULL);
+INSERT INTO BUYER VALUES	(1049	,NULL);
+INSERT INTO BUYER VALUES	(1051	,NULL);
+INSERT INTO BUYER VALUES	(1054	,NULL);
+INSERT INTO BUYER VALUES	(1055	,NULL);
+INSERT INTO BUYER VALUES	(1056	,NULL);
+INSERT INTO BUYER VALUES	(1062	,NULL);
+INSERT INTO BUYER VALUES	(1069	,NULL);
+INSERT INTO BUYER VALUES	(1072	,NULL);
+INSERT INTO BUYER VALUES	(1073	,NULL);
+INSERT INTO BUYER VALUES	(1076	,NULL);
+INSERT INTO BUYER VALUES	(1077	,NULL);
+INSERT INTO BUYER VALUES	(1081	,NULL);
+INSERT INTO BUYER VALUES	(1083	,NULL);
+INSERT INTO BUYER VALUES	(1087	,NULL);
+INSERT INTO BUYER VALUES	(1093	,NULL);
+INSERT INTO BUYER VALUES	(1096	,NULL);
+INSERT INTO BUYER VALUES	(1103	,NULL);
+INSERT INTO BUYER VALUES	(1107	,NULL);
+INSERT INTO BUYER VALUES	(1111	,NULL);
+INSERT INTO BUYER VALUES	(1122	,NULL);
+INSERT INTO BUYER VALUES	(1123	,NULL);
+INSERT INTO BUYER VALUES	(1128	,NULL);
+INSERT INTO BUYER VALUES	(1139	,NULL);
+INSERT INTO BUYER VALUES	(1140	,NULL);
+INSERT INTO BUYER VALUES	(1146	,NULL);
+INSERT INTO BUYER VALUES	(1147	,NULL);
+INSERT INTO BUYER VALUES	(1149	,NULL);
+INSERT INTO BUYER VALUES	(1150	,NULL);
+INSERT INTO BUYER VALUES	(1153	,NULL);
+INSERT INTO BUYER VALUES	(1154	,NULL);
+INSERT INTO BUYER VALUES	(1160	,NULL);
+INSERT INTO BUYER VALUES	(1162	,NULL);
+INSERT INTO BUYER VALUES	(1164	,NULL);
+INSERT INTO BUYER VALUES	(1172	,NULL);
+INSERT INTO BUYER VALUES	(1175	,NULL);
+INSERT INTO BUYER VALUES	(1176	,NULL);
+INSERT INTO BUYER VALUES	(1182	,NULL);
+INSERT INTO BUYER VALUES	(1183	,NULL);
+INSERT INTO BUYER VALUES	(1188	,NULL);
+INSERT INTO BUYER VALUES	(1190	,NULL);
+INSERT INTO BUYER VALUES	(1192	,NULL);
+INSERT INTO BUYER VALUES	(1193	,NULL);
+INSERT INTO BUYER VALUES	(1195	,NULL);
+INSERT INTO BUYER VALUES	(1199	,NULL);
+INSERT INTO BUYER VALUES	(1200	,NULL);
+INSERT INTO BUYER VALUES	(1201	,NULL);
+INSERT INTO BUYER VALUES	(1204	,NULL);
+INSERT INTO BUYER VALUES	(1210	,NULL);
+INSERT INTO BUYER VALUES	(1218	,NULL);
+INSERT INTO BUYER VALUES	(1221	,NULL);
+INSERT INTO BUYER VALUES	(1223	,NULL);
+INSERT INTO BUYER VALUES	(1224	,NULL);
+INSERT INTO BUYER VALUES	(1228	,NULL);
+INSERT INTO BUYER VALUES	(1233	,NULL);
+INSERT INTO BUYER VALUES	(1235	,NULL);
+INSERT INTO BUYER VALUES	(1239	,NULL);
+INSERT INTO BUYER VALUES	(1242	,NULL);
+INSERT INTO BUYER VALUES	(1244	,NULL);
+INSERT INTO BUYER VALUES	(1249	,NULL);
+INSERT INTO BUYER VALUES	(1250	,NULL);
+INSERT INTO BUYER VALUES	(1252	,NULL);
+INSERT INTO BUYER VALUES	(1255	,NULL);
+INSERT INTO BUYER VALUES	(1258	,NULL);
+INSERT INTO BUYER VALUES	(1259	,NULL);
+INSERT INTO BUYER VALUES	(1261	,NULL);
+INSERT INTO BUYER VALUES	(1265	,NULL);
+INSERT INTO BUYER VALUES	(1268	,NULL);
+INSERT INTO BUYER VALUES	(1271	,NULL);
+INSERT INTO BUYER VALUES	(1276	,NULL);
+INSERT INTO BUYER VALUES	(1279	,NULL);
+INSERT INTO BUYER VALUES	(1284	,NULL);
+INSERT INTO BUYER VALUES	(1288	,NULL);
+INSERT INTO BUYER VALUES	(1292	,NULL);
+INSERT INTO BUYER VALUES	(1296	,NULL);
+INSERT INTO BUYER VALUES	(1297	,NULL);
+INSERT INTO BUYER VALUES	(1298	,NULL);
+INSERT INTO BUYER VALUES	(1299	,NULL);
+INSERT INTO BUYER VALUES	(1300	,NULL);
+INSERT INTO BUYER VALUES	(1303	,NULL);
+INSERT INTO BUYER VALUES	(1304	,NULL);
+INSERT INTO BUYER VALUES	(1306	,NULL);
+INSERT INTO BUYER VALUES	(1311	,NULL);
+INSERT INTO BUYER VALUES	(1314	,NULL);
+INSERT INTO BUYER VALUES	(1317	,NULL);
+INSERT INTO BUYER VALUES	(1319	,NULL);
+INSERT INTO BUYER VALUES	(1320	,1);
+INSERT INTO BUYER VALUES	(1321	,2);
+INSERT INTO BUYER VALUES	(1322	,3);
+INSERT INTO BUYER VALUES	(1323	,4);
+INSERT INTO BUYER VALUES	(1324	,5);
+INSERT INTO BUYER VALUES	(1325	,6);
+INSERT INTO BUYER VALUES	(1326	,46);
+INSERT INTO BUYER VALUES	(1327	,8);
+INSERT INTO BUYER VALUES	(1328	,9);
+INSERT INTO BUYER VALUES	(1329	,10);
+
+
+
+/*------------------------------POPULATE RENTER TABLE---------------------------*/
+
+INSERT INTO RENTER VALUES	(1001	,2);
+INSERT INTO RENTER VALUES	(1002	,1);
+INSERT INTO RENTER VALUES	(1004	,3);
+INSERT INTO RENTER VALUES	(1006	,3);
+INSERT INTO RENTER VALUES	(1007	,1);
+INSERT INTO RENTER VALUES	(1010	,2);
+INSERT INTO RENTER VALUES	(1011	,2);
+INSERT INTO RENTER VALUES	(1012	,2);
+INSERT INTO RENTER VALUES	(1016	,1);
+INSERT INTO RENTER VALUES	(1019	,1);
+INSERT INTO RENTER VALUES	(1020	,1);
+INSERT INTO RENTER VALUES	(1022	,1);
+INSERT INTO RENTER VALUES	(1023	,1);
+INSERT INTO RENTER VALUES	(1024	,1);
+INSERT INTO RENTER VALUES	(1026	,1);
+INSERT INTO RENTER VALUES	(1027	,1);
+INSERT INTO RENTER VALUES	(1028	,1);
+INSERT INTO RENTER VALUES	(1032	,2);
+INSERT INTO RENTER VALUES	(1033	,1);
+INSERT INTO RENTER VALUES	(1035	,2);
+INSERT INTO RENTER VALUES	(1038	,1);
+INSERT INTO RENTER VALUES	(1039	,1);
+INSERT INTO RENTER VALUES	(1042	,2);
+INSERT INTO RENTER VALUES	(1043	,1);
+INSERT INTO RENTER VALUES	(1052	,1);
+INSERT INTO RENTER VALUES	(1060	,1);
+INSERT INTO RENTER VALUES	(1061	,1);
+INSERT INTO RENTER VALUES	(1063	,1);
+INSERT INTO RENTER VALUES	(1064	,1);
+INSERT INTO RENTER VALUES	(1065	,1);
+INSERT INTO RENTER VALUES	(1066	,1);
+INSERT INTO RENTER VALUES	(1067	,1);
+INSERT INTO RENTER VALUES	(1068	,3);
+INSERT INTO RENTER VALUES	(1071	,1);
+INSERT INTO RENTER VALUES	(1074	,1);
+INSERT INTO RENTER VALUES	(1075	,1);
+INSERT INTO RENTER VALUES	(1078	,1);
+INSERT INTO RENTER VALUES	(1079	,3);
+INSERT INTO RENTER VALUES	(1082	,2);
+INSERT INTO RENTER VALUES	(1084	,1);
+INSERT INTO RENTER VALUES	(1088	,2);
+INSERT INTO RENTER VALUES	(1089	,1);
+INSERT INTO RENTER VALUES	(1090	,3);
+INSERT INTO RENTER VALUES	(1094	,2);
+INSERT INTO RENTER VALUES	(1095	,1);
+INSERT INTO RENTER VALUES	(1097	,1);
+INSERT INTO RENTER VALUES	(1098	,2);
+INSERT INTO RENTER VALUES	(1099	,2);
+INSERT INTO RENTER VALUES	(1101	,1);
+INSERT INTO RENTER VALUES	(1102	,1);
+INSERT INTO RENTER VALUES	(1105	,1);
+INSERT INTO RENTER VALUES	(1106	,1);
+INSERT INTO RENTER VALUES	(1108	,1);
+INSERT INTO RENTER VALUES	(1109	,1);
+INSERT INTO RENTER VALUES	(1110	,1);
+INSERT INTO RENTER VALUES	(1112	,3);
+INSERT INTO RENTER VALUES	(1113	,2);
+INSERT INTO RENTER VALUES	(1114	,1);
+INSERT INTO RENTER VALUES	(1115	,1);
+INSERT INTO RENTER VALUES	(1116	,1);
+INSERT INTO RENTER VALUES	(1118	,1);
+INSERT INTO RENTER VALUES	(1119	,2);
+INSERT INTO RENTER VALUES	(1121	,2);
+INSERT INTO RENTER VALUES	(1124	,1);
+INSERT INTO RENTER VALUES	(1126	,2);
+INSERT INTO RENTER VALUES	(1130	,1);
+INSERT INTO RENTER VALUES	(1131	,3);
+INSERT INTO RENTER VALUES	(1132	,1);
+INSERT INTO RENTER VALUES	(1133	,2);
+INSERT INTO RENTER VALUES	(1135	,2);
+INSERT INTO RENTER VALUES	(1136	,1);
+INSERT INTO RENTER VALUES	(1137	,1);
+INSERT INTO RENTER VALUES	(1138	,1);
+INSERT INTO RENTER VALUES	(1141	,3);
+INSERT INTO RENTER VALUES	(1142	,3);
+INSERT INTO RENTER VALUES	(1145	,1);
+INSERT INTO RENTER VALUES	(1148	,3);
+INSERT INTO RENTER VALUES	(1151	,3);
+INSERT INTO RENTER VALUES	(1152	,1);
+INSERT INTO RENTER VALUES	(1155	,2);
+INSERT INTO RENTER VALUES	(1157	,1);
+INSERT INTO RENTER VALUES	(1158	,2);
+INSERT INTO RENTER VALUES	(1159	,1);
+INSERT INTO RENTER VALUES	(1165	,3);
+INSERT INTO RENTER VALUES	(1168	,1);
+INSERT INTO RENTER VALUES	(1169	,1);
+INSERT INTO RENTER VALUES	(1170	,2);
+INSERT INTO RENTER VALUES	(1173	,1);
+INSERT INTO RENTER VALUES	(1174	,1);
+INSERT INTO RENTER VALUES	(1178	,2);
+INSERT INTO RENTER VALUES	(1179	,1);
+INSERT INTO RENTER VALUES	(1181	,1);
+INSERT INTO RENTER VALUES	(1185	,1);
+INSERT INTO RENTER VALUES	(1186	,1);
+INSERT INTO RENTER VALUES	(1187	,2);
+INSERT INTO RENTER VALUES	(1189	,1);
+INSERT INTO RENTER VALUES	(1194	,1);
+INSERT INTO RENTER VALUES	(1197	,2);
+INSERT INTO RENTER VALUES	(1198	,2);
+INSERT INTO RENTER VALUES	(1202	,1);
+INSERT INTO RENTER VALUES	(1203	,2);
+INSERT INTO RENTER VALUES	(1205	,1);
+INSERT INTO RENTER VALUES	(1207	,2);
+INSERT INTO RENTER VALUES	(1208	,1);
+INSERT INTO RENTER VALUES	(1209	,1);
+INSERT INTO RENTER VALUES	(1211	,2);
+INSERT INTO RENTER VALUES	(1212	,1);
+INSERT INTO RENTER VALUES	(1214	,3);
+INSERT INTO RENTER VALUES	(1215	,1);
+INSERT INTO RENTER VALUES	(1216	,2);
+INSERT INTO RENTER VALUES	(1217	,1);
+INSERT INTO RENTER VALUES	(1219	,2);
+INSERT INTO RENTER VALUES	(1220	,1);
+INSERT INTO RENTER VALUES	(1222	,1);
+INSERT INTO RENTER VALUES	(1225	,1);
+INSERT INTO RENTER VALUES	(1226	,1);
+INSERT INTO RENTER VALUES	(1227	,1);
+INSERT INTO RENTER VALUES	(1229	,1);
+INSERT INTO RENTER VALUES	(1230	,1);
+INSERT INTO RENTER VALUES	(1231	,1);
+INSERT INTO RENTER VALUES	(1232	,1);
+INSERT INTO RENTER VALUES	(1236	,1);
+INSERT INTO RENTER VALUES	(1237	,1);
+INSERT INTO RENTER VALUES	(1238	,1);
+INSERT INTO RENTER VALUES	(1240	,3);
+INSERT INTO RENTER VALUES	(1241	,2);
+INSERT INTO RENTER VALUES	(1243	,2);
+INSERT INTO RENTER VALUES	(1245	,2);
+INSERT INTO RENTER VALUES	(1246	,1);
+INSERT INTO RENTER VALUES	(1247	,1);
+INSERT INTO RENTER VALUES	(1248	,1);
+INSERT INTO RENTER VALUES	(1253	,2);
+INSERT INTO RENTER VALUES	(1254	,1);
+INSERT INTO RENTER VALUES	(1257	,1);
+INSERT INTO RENTER VALUES	(1260	,1);
+INSERT INTO RENTER VALUES	(1262	,2);
+INSERT INTO RENTER VALUES	(1263	,1);
+INSERT INTO RENTER VALUES	(1264	,1);
+INSERT INTO RENTER VALUES	(1267	,1);
+INSERT INTO RENTER VALUES	(1270	,1);
+INSERT INTO RENTER VALUES	(1273	,1);
+INSERT INTO RENTER VALUES	(1274	,1);
+INSERT INTO RENTER VALUES	(1275	,1);
+INSERT INTO RENTER VALUES	(1277	,1);
+INSERT INTO RENTER VALUES	(1278	,1);
+INSERT INTO RENTER VALUES	(1281	,3);
+INSERT INTO RENTER VALUES	(1282	,1);
+INSERT INTO RENTER VALUES	(1286	,1);
+INSERT INTO RENTER VALUES	(1287	,1);
+INSERT INTO RENTER VALUES	(1290	,1);
+INSERT INTO RENTER VALUES	(1294	,1);
+INSERT INTO RENTER VALUES	(1295	,1);
+INSERT INTO RENTER VALUES	(1301	,1);
+INSERT INTO RENTER VALUES	(1302	,1);
+INSERT INTO RENTER VALUES	(1305	,2);
+INSERT INTO RENTER VALUES	(1307	,2);
+INSERT INTO RENTER VALUES	(1309	,1);
+INSERT INTO RENTER VALUES	(1310	,1);
+INSERT INTO RENTER VALUES	(1312	,2);
+INSERT INTO RENTER VALUES	(1313	,1);
+INSERT INTO RENTER VALUES	(1315	,2);
+INSERT INTO RENTER VALUES	(1316	,1);
+INSERT INTO RENTER VALUES	(1318	,1);
+
+/*------------------------------POPULATE RELATIONSHIP TABLE---------------------------*/
+
+INSERT INTO RELATIONSHIP VALUES	('EF'	,'Extended Family');
+INSERT INTO RELATIONSHIP VALUES	('M'	,'Married');
+INSERT INTO RELATIONSHIP VALUES	('RM'	,'Roommates');
+INSERT INTO RELATIONSHIP VALUES	('S'	,'Siblings');
+
+/*------------------------------POPULATE CLIENT_RELATIONSHIPS TABLE---------------------------*/
+
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1001	,1245	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1003	,1225	,'M');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1006	,1217	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1006	,1245	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1007	,1233	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1009	,1208	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1010	,1213	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1010	,1226	,'EF');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1012	,1233	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1014	,1200	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1014	,1203	,'M');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1016	,1207	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1017	,1231	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1018	,1228	,'M');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1018	,1233	,'M');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1019	,1233	,'S');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1020	,1238	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1021	,1238	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1022	,1204	,'M');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1024	,1206	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1027	,1234	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1027	,1243	,'S');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1029	,1213	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1029	,1219	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1029	,1220	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1030	,1223	,'S');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1030	,1238	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1030	,1240	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1030	,1242	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1032	,1206	,'M');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1032	,1226	,'M');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1033	,1212	,'EF');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1034	,1224	,'EF');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1035	,1232	,'M');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1036	,1223	,'M');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1036	,1228	,'S');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1036	,1235	,'EF');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1038	,1246	,'S');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1039	,1204	,'EF');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1044	,1206	,'EF');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1044	,1245	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1045	,1214	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1045	,1226	,'EF');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1045	,1234	,'M');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1046	,1236	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1047	,1203	,'RM');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1048	,1206	,'M');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1049	,1213	,'EF');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1049	,1215	,'M');
+INSERT INTO CLIENT_RELATIONSHIPS VALUES	(1050	,1234	,'S');
+
+/*------------------------------POPULATE CLIENT_SOURCE TABLE---------------------------*/
+
+INSERT INTO CLIENT_SOURCE VALUES	('I'	,'Inquired');
+INSERT INTO CLIENT_SOURCE VALUES	('V'	,'Viewed');
+INSERT INTO CLIENT_SOURCE VALUES	('VI'	,'Viewed and inquired');
+INSERT INTO CLIENT_SOURCE VALUES	('W'	,'Walked in');
+
+/*------------------------------REF CONSTRAINTS FOR CLIENT TABLE---------------------------*/
+
+ALTER TABLE "CLIENT" 
+	ADD CONSTRAINT "CLIENT_SOURCE_TYPE_FK1" FOREIGN KEY ("SOURCE_TYPE")
+	REFERENCES "CLIENT_SOURCE" ("SOURCE_TYPE") ENABLE;
+
+/*------------------------------REF CONSTRAINTS FOR BUYER TABLE---------------------------*/
+
+ALTER TABLE "BUYER" 
+	ADD CONSTRAINT "BUYER_CLIENT_FK1" FOREIGN KEY ("CLIENT_NO")
+	REFERENCES "CLIENT" ("CLIENT_NO") ENABLE;
+ALTER TABLE "BUYER" 
+	ADD CONSTRAINT "BUYER_OWNER_FK2" FOREIGN KEY ("OWNER_NO")
+	REFERENCES "PRIVATE_OWNER" ("OWNER_NO") DISABLE;
+
+
+/*------------------------------REF CONSTRAINTS FOR RENTER TABLE---------------------------*/
+
+ALTER TABLE "RENTER" 
+	ADD CONSTRAINT "RENTER_CLIENT_FK1" FOREIGN KEY ("CLIENT_NO")
+	REFERENCES "CLIENT" ("CLIENT_NO") ENABLE;
+
+/*------------------------------REF CONSTRAINTS FOR CLIENT_RELATIONSHIPS TABLE---------------------------*/
+
+ALTER TABLE "CLIENT_RELATIONSHIPS" 
+	ADD CONSTRAINT "CLIENT_RELATIONSHIPS_CLIENT_FK1" FOREIGN KEY ("CLIENT_NO_1")
+	REFERENCES "CLIENT" ("CLIENT_NO") ENABLE;
+ALTER TABLE "CLIENT_RELATIONSHIPS" 
+	ADD CONSTRAINT "CLIENT_RELATIONSHIPS_CLIENT_FK2" FOREIGN KEY ("CLIENT_NO_2")
+	REFERENCES "CLIENT" ("CLIENT_NO") ENABLE;
+ALTER TABLE "CLIENT_RELATIONSHIPS" 
+	ADD CONSTRAINT "CLIENT_RELATIONSHIPS_CLIENT_FK3" FOREIGN KEY ("RELATIONSHIP_TYPE")
+	REFERENCES "RELATIONSHIP" ("RELATIONSHIP_TYPE") ENABLE;
+
+
+/*------------------------------COMMIT---------------------------*/
+
+COMMIT;
+

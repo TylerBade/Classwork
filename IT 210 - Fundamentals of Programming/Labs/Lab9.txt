@@ -1,0 +1,45 @@
+-Tyler Bade-
+
+Searching results
+
+    size     mySequential       using 'in'       dictionary           binary
+     100|       0.0000000        0.0000000        0.0000000        0.0000000
+    1000|       0.0000000        0.0000000        0.0000000        0.0000000
+   10000|       0.0000000        0.0000000        0.0000000        0.0000000
+  100000|       0.0156000        0.0156000        0.0000000        0.0000000
+ 1000000|       0.1872001        0.0624001        0.0000000        0.0000000
+
+
+Sorting Results
+
+size        selection            shell            merge            quick
+      10|       0.0000000        0.0000000        0.0000000        0.0000000
+     100|       0.0000000        0.0000000        0.0000000        0.0000000
+    1000|       0.0624001        0.0000000        0.0156000        0.0000000
+   10000|       5.8656001        0.0935998        0.0780001        0.0468001
+  100000|     625.5993490        1.5151999        0.9203999        0.5616002
+
+
+Small Data Sets:
+
+For datasets under the size of 100, all of the methods were able to complete their functions in a time close to zero seconds. at the size of 1000, the searching results continued this trend, along with the shell and quick functions of the sorting results, but the selection and merge functions began to run off on time.Any function in these sets would be of use for small datasets, as minimal time would be spent on any of them.
+
+Large data sets:
+
+For large datasets, the time variance was much greater between functions. Dictionary and binary lookups were consistently fast with times near zero,, while sequential and in searching methods started to trail off. All of the searching functions spent less time than the sorting results, selection being the worst choice for a function. Selection spent 10 minutes on what was done by binary in less than a millisecond. All of the search functions were much faster than the sorting functions, making them what would be used for larger datasets.
+
+Another added row:
+
+If another row was added to the data, I would expect that the times would be slightly higher or near the same for most functions. The selection function would have the largest difference in time, seeing as though it was the slowest of all of the functions, and the binary and dictionary functions would still be the fastest.
+
+Difference between mySequential and "using'in'":
+
+The difference in the time values between these two only occur in the largest of datasets. This difference is because the mySequential function must compare values to each other, while the "using'in'" function only assigns an equivalent to a variable. Because of this difference, the output time in the mySequential will be higher than the "using'in'" function in increasingly larger sets.
+
+Recursive functions:
+
+The functions that are recursive are in the sort file, which include the functions quickSort and mergeSort. These functions have recursive lines that call back to the same function, in the case of quickSort, it recurses over the values from the start of the data to the partition until the start and partition are equal. for mergeSort, it recurses the first and second halves back through the same function.
+
+O(x) functions:
+
+The functions that represents the constant growth rates are dictionary and binary (O(1)), quick and "using'in'" both use the linear growth rate (O(n)), the functions using the quadratic growth rate are sequential and merge (O(n^2)), shell uses a logarithmic growth rate (O(log(n))), and selection uses Log-linear growth (O(n log(n))).

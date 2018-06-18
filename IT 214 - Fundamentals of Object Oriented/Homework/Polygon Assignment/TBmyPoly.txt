@@ -1,0 +1,15 @@
+Not a triangle.
+
+Not a quadrilateral.
+
+The triangle is Sally
+Vertices: (1.4,2.3), (3.2,4.1), (5.0,6.9)
+Side lengths: 2.55  3.33  5.84
+No sides are of equal length. 
+
+The name of this quadrilateral is Billy
+Vertices: (0.0,0.0), (0.0,1.0), (1.0,1.0), (1.0,0.0)
+Side lengths: 1.0  1.0  1.0  1.0
+Diagonals: 1.41  1.41
+At least two sides are of equal length. 
+

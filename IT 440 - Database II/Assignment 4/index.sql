@@ -1,0 +1,3 @@
+CREATE NONCLUSTERED INDEX CarDex
+ON Car
+(Price_Per_Day DESC)

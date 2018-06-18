@@ -1,0 +1,79 @@
+Open book midterm:
+
+Need to know:
+	Pyvisualizations with Matplotlib, GGplot, Seaborn
+	Chapter 4, jake Vanderplas/matplotlib exercises
+
+Matplotlib
+
+Import matplotlib
+		.pyplot
+
+plt.style.use() allows for style selection
+plt.show() displays plot
+
+%matplotlib notebook = interactive
+%matplotlib inline = static
+
+x.savefig() = saves figures
+
+numpy for linspace, sin, cos, etc.
+plot() creates basic plots
+main Vars:
+	x
+	y
+	color
+	line type
+can also make xlim() and ylim() ranges
+xlabel() and ylabel() to name axes
+set() can set all plot variables at once
+legend() can create a legend for the plot
+
+
+scatter() works in the same way as plot() for scatter plots
+
+errorbar() creates an errorbar plot
+	has fmt and yerr variables
+
+contour() can be used to create heatmaps
+	colorbar() creates a colorbar with information on the plot, can be customized
+	clabel() labels the contours with their values
+
+hist() creates a histogram
+hist2d() creates a 2d histogram (hexbin does the same except with hexagons)
+
+legend() can be used on a plot to create a legend on the graph, can be done multiple times
+
+3dplots:
+require mpltoolkits mplot3d
+created using projection='3d'
+scatter3d, plot3d for scatterplots
+contour3d for contour plots
+view_init can alter the viewing angle
+plot_wireframe can change look to wireframe
+plot_surface can change surface colors
+
+pandas.read_***() to read certain file types (csv, json, html, etc.)
+
+ggplot:
+	need to impot ggplot, pandas, numpy
+head(n) top of the dataset n=rows
+tail(n) bottom of dataset
+can use qplot() or ggplot() functions
+vars:
+x and y (data for axes)
+data (what dataset to use)
+
+geom (what type of plot) used in qplot
+
++ geom_type() for ggplot (replace type with graph type)
+use aes to encapsulate x,y,color
+
+color (what variable to color based off)
+
+ggtitle(), xlab, ylab to label chart
+
+facet_wrap to create multiple charts
+
+
+
